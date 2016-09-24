@@ -1,0 +1,9 @@
+/* PNG transparency prоblеm in IE8 */
+/* http://stackoverflow.com/a/3999844 */
+
+.grayscale img {
+  background: transparent;
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF)"; /* IE8 */   
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#00FFFFFF,endColorstr=#00FFFFFF);   /* IE6 & 7 */      
+  zoom: 1;
+}

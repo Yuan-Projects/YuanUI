@@ -1,8 +1,7 @@
 .grayscale {
   -webkit-filter: grayscale(1); /* Webkit */
-  filter: gray; /* IE6-9 */
   filter: grayscale(100%);/* W3C */
-  
+  filter: gray; /* IE6-9 Not: This rule should be under the W3C rule */
   transition: filter 2s;
 }
 
