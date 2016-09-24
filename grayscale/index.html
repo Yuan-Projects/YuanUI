@@ -2,6 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8" />
+    <meta content="IE=9" http-equiv="X-UA-Compatible" />
     <title>Grayscale</title>
     <link rel="stylesheet" href="grayscale.css" />
     <!--[if IE 8]>
@@ -20,6 +21,8 @@
       <li>Chrome 53 on Windows 10</li>
       <li>Firefox 44 on Windows 10</li>
       <li>Edge 13 on Windows 10</li>
+      <li>IE 11 on Windows 10</li>
+      <li>IE 10 on Windows 7</li>
       <li>IE 9 on Windows 7</li>
       <li>IE 8 on Windows 7</li>
     </ul>
@@ -27,6 +30,10 @@
     <ol>
       <li>IE8, IE9 does not support CSS transition</li>
       <li>IE8 has problems in rendering PNG, you should include the ie8-png-fix.css for IE8 support.</li>
+      <li>IE 10 and IE 11 does not support the CSS filter feature. To use it, we make the browser render in IE 9 mode.<br />
+        <code>&lt;meta content="IE=9" http-equiv="X-UA-Compatible" /&gt;</code> <br />
+        This is NOT a good practice.
+      </li>
     </ol>
   </body>
 </html>
