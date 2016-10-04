@@ -1,0 +1,35 @@
+.yuan-overlay-body {
+  margin: 0;
+  overflow: hidden;
+}
+
+/* Overlay */
+body.yuan-overlay-body::after {
+    position: fixed;
+    z-index: 998;
+    top: 0;
+    left: 0;
+
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    content: ' ';
+
+    opacity: .2;
+    background-color: #000;
+}
+
+
+.yuan-overlay {
+  background-color: yellow;
+  
+  position: fixed;
+    z-index: 999;
+    top: 50%;
+    width: 90vw;
+    height: 90vh;
+    margin: 0 5vw;
+    margin-top: calc(-90vh / 2 );
+}
