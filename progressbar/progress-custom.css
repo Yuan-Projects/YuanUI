@@ -1,0 +1,43 @@
+.yuan-progress {
+  min-width: 100px;
+  min-height: 30px;
+  box-sizing: border-box;
+  border: 1px solid black;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.yuan-progress .bar {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60%;
+  height: 100%;
+  background-color: blue;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.yuan-progress .indeterminatebar {
+  width: 20%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: blue;
+  border-radius: 5px;
+  -webkit-animation: bound 3s linear infinite alternate;
+  animation: bound 3s linear infinite alternate;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes bound {
+  from { left: 0;}
+  to { left: 80%;}
+}
+
+@keyframes bound {
+  from {left: 0;}
+  to { left: 80%;}
+}

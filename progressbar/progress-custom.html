@@ -3,34 +3,45 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+    <link rel="stylesheet" href="progress-custom.css" />
     <title>progress</title>
   </head>
   <body>
     <p>60%</p>
-    <progress max="100" value="60">
-      <strong>Progress: 60% done.</strong>
-    </progress>
+    <div class="yuan-progress">
+      <div class="bar">
+      </div>
+    </div>
     
     <p>indeterminate</p>
-    <progress max="100">
-      <strong>Progress: 60% done.</strong>
-    </progress>
+    <div class="yuan-progress">
+      <div class="indeterminatebar">
+      </div>
+    </div>
     
     <p>Tested on</p>
     <ul>
       <li>Chrome 53 on Windows 10</li>
       <li>Firefox 47 on Windows 10</li>
-      <li>Firefox 47 on Ubuntu</li>
       <li>Edge 13 on Windows 10</li>
       <li>IE 11 on Windows 10</li>
       <li>IE 10 on Windows 7</li>
       <li>Mobile Safari on iOS 8.4</li>
       <li>IE Mobile on Windows Phone 8.1</li>
+      <li>Default browser on Android 4.0.3</li>
+      <li>Default browser on Android 2.3.5</li>
     </ul>
     
-    <p>Note:</p>
+    <p>Note: CSS Animation is supported on the following browsers:</p>
     <ul>
-      <li>Safari on iOS does not support indeterminate progress bars (they are rendered like 0%-completed progress bars).</li>
+      <li>IE 10+</li>
+      <li>Firefox 5+</li>
+      <li>Chrome 4+</li>
+      <li>Safari 4+</li>
+      <li>Opera 12.1+</li>
+      <li>iOS safari 3.2+</li>
+      <li>Android 2.1+</li>
+      <li>IE mobile 10+</li>
     </ul>
   </body>
 </html>
