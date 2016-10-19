@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>CSS Layout</title>
+    <style type="text/css">
+      .container {
+        width: 500px;
+        
+        overflow: hidden;/* important */
+        
+        margin-left: auto;
+        margin-right: auto;
+        border: 1px solid black;
+      }
+      .left {
+        background-color: red;
+      }
+
+      .right {
+        background-color: green;
+      }
+
+      #left1, #right1{
+        float: left;
+        width: 50%;
+      }
+      
+      #container2 {
+        margin-left: auto;
+        margin-right: auto;
+        overflow: auto;
+        width: 960px; /* set the width of container to 960px; */
+      }
+
+      #left2 {
+        width: 200px; /* The left div is 200px wide */
+        float: left; /* Float to the left side */
+      }
+
+      #right2 {
+        margin-left: 200px; /* important to make sure the left div is not surrounded by the right div */
+      }
+      
+      
+      
+      body {
+        margin: 0;
+      }
+
+      #wrapper {
+        position: relative;
+      }
+
+      .one {
+        position: absolute;
+        left: 0;
+        width: 200px;
+        background-color: red;
+      }
+
+      .two {
+        margin-left: 200px;
+        background-color: green;
+      }
+    </style>
+    <!--[if lte IE 7]>
+    <style type="text/css">
+    #left {
+      margin-right: -1px;
+    }
+    </style>
+    <![endif]-->
+  </head>
+  <body>
+    <h2>Two columns side by side</h2>
+    <div id="container1" class="container">
+      <div id="left1" class="left">
+        Left, 50%; float: left;
+      </div>
+      <div id="right1" class="right">
+        Right, 50%; float: left;
+      </div>
+    </div>
+    
+    <h2>Two columns are fixed width</h2>
+    <div id="container2" class="container">
+      <div id="left2" class="left">
+        Left, width: 200px; <br />
+        float: left;
+      </div>
+      <div id="right2" class="right">
+        Right, margin-left: 200px;
+      </div>
+    </div>
+    
+    <h2>Two columns layout with absolute positioned div</h2>
+    <div class="wrapper">
+      <div class="column one">
+        Left <br />
+        <code>
+        position: absolute;
+        left: 0;
+        width: 200px;
+        background-color: red;
+        </code>
+      </div>
+      <div class="column two">
+        middle <br />
+        margin-left: 200px;<br />
+        background-color: green;
+      </div>
+    </div>
+    
+  </body>
+</html>
