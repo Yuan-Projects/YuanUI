@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, minimal-ui">
+    <title>Draggable</title>
+    <style type="text/css">
+      div {
+        width: 350px;
+        height: 200px;
+        border: 1px solid black;
+      }
+      img {
+        border: 1px solid blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="destDiv" 
+      ondrop="drop(event)" 
+      ondragover="allowDrop(event)">
+    
+    </div>
+    <div id="destDiv2" 
+      ondrop="drop(event)" 
+      ondragover="allowDrop(event)">
+      <img 
+        id="theImg" 
+        src="images/googlelogo_color_160x56dp.png" 
+        draggable="true" 
+        ondragstart="drag(event)" 
+      />
+    </div>
+    
+    
+    <script>
+      function drag(evt){
+        evt = evt || window.event;
+        var elem = evt.target || evt.srcElement;
+        evt.dataTransfer.setData("text", elem.id);
+      }
+      function allowDrop(evt) {
+        evt = evt || window.event;
+        evt.preventDefault ? evt.preventDefault() : (evt.returnValue = false);
+      }
+      function drop(evt) {
+        //evt.preventDefault();
+        evt = evt || window.event;
+        var elem = evt.target || evt.srcElement;
+        evt.preventDefault ? evt.preventDefault() : (evt.returnValue = false);
+        
+        var data = evt.dataTransfer.getData("text");
+        elem.appendChild(document.getElementById(data));
+      }
+    </script>
+  </body>
+</html>
