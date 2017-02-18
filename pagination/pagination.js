@@ -1,25 +1,30 @@
 (function($){
   $.fn.pagination = function(param1, param2) {
+    var element = this;
     if ($.isPlainObject(param1)) {
-
       var opts = $.extend({}, $.fn.pagination.defaults, param1);
       this.data('options', opts);
-      var element = $(this);
       buildElements(element);
       addEventListeners(element);
 
     } else if (typeof param1 === "string") {
       switch(param1) {
         case "options": 
-          return this.data('options');
+          return element.data('options');
           break;
         case "loading":
           break;
         case "loaded":
           break;
         case "refresh":
+          refreshUI(element, param2);
           break;
         case "select":
+          if ($.isNumeric(param2)) {
+            gotoPage(element, param2);
+          } else {
+            refreshUI(element);
+          }
           break;
       }
     }
@@ -33,7 +38,6 @@
     pageNumber: 1,
     loading: false,
     onSelectPage: function(pageNumber, pageSize) {
-      debugger;
     }
   };
 
@@ -50,6 +54,23 @@
       </div>';
     tplstr = tplstr.replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
     element.append($(tplstr));
+  }
+
+  function refreshUI(element, options) {
+    var opts = element.data('options');
+    if (options) {
+      if (options.total) {
+        opts.total = options.total;
+      }
+      // TODO validation
+      if (options.pageNumber) {
+        opts.pageNumber = options.pageNumber;
+      }
+    }
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    element.find('.cur_page em').text(opts.pageNumber);
+    element.find('.cur_page b').text(pages);
+    element.find('input').val('');
   }
   
   function addEventListeners(element) {
@@ -82,10 +103,9 @@
     } else if (newPage === 'next') {
       newPageNum = pageNumber + 1;
     }
-    if (newPageNum > 0 && newPageNum <= pages) {
-      // Valid new page 
+    // Valid new page 
+    if (typeof newPageNum === "number" && newPageNum > 0 && newPageNum <= pages) {
       opts.pageNumber = newPageNum;
-      //debugger;
       // refresh UI
       element.find('.cur_page em').text(newPageNum);
       // trigger custom event

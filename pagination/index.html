@@ -12,12 +12,23 @@
     <script>
       $(function(){
         $('#pp').pagination({
-          total: 114,
-          pageNumber: 6,
+          total: 0,
+          pageNumber: 0,
           onSelectPage: function(pageNumber) {
             debugger;
           }
         });
+
+        setTimeout(function(){
+          $('#pp').pagination('refresh', {
+            total: 33,
+            pageNumber: 3 
+          });
+        }, 5000);
+
+        setTimeout(function(){
+          $('#pp').pagination('select', 2);
+        }, 15000);
       });
     </script>
   </body>
