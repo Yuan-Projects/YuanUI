@@ -1,0 +1,14 @@
+.pagination{margin-top: 20px; text-align: right;}
+.pagination span{display: inline-block; width: 30px; height: 30px; border-radius: 5px; border: 1px solid #D3D3D3; vertical-align: middle;}
+.pagination span {background:url(./images/sprite.png) no-repeat;}
+.pagination span:hover{background-color: #f0f0f0;}
+.pagination span:active{background-color: #e0e0e0;}
+.pagination .page_prev{background-position: -36px -64px;}
+.pagination .page_next{background-position: -68px -64px;}
+.pagination .cur_page{display: inline-block; margin: 0 10px; vertical-align: middle;}
+.pagination .cur_page em{font-style: normal;}
+.pagination .cur_page b{font-weight: normal;}
+.pagination input{width: 70px; height: 30px; text-align: center; border-radius: 5px; border: 1px solid #D3D3D3; margin: 0 5px 0 10px; vertical-align: middle;}
+.pagination .go{width: 60px; height: 32px; border-radius: 5px; border: 1px solid #D3D3D3; vertical-align: middle;}
+.pagination .go:hover{background: #f0f0f0;}
+.pagination .go:active{background: #e0e0e0;}
