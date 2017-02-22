@@ -1,0 +1,17 @@
+.pop_auth{width: 520px;}
+.pop_auth .pop_con{max-height: 500px; background: #fff; padding: 12px 18px; overflow: auto;}
+.pop_auth .pop_con .user_name{padding-left: 10px;}
+.pop_auth .pop_con .auth_wrap{padding: 20px; background: #FCFCFD; border: 1px solid #ECEDEE; margin: 12px 0;}
+.pop_auth .pop_con .auth_wrap .auth_bd{margin-left: 20px;}
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item{margin-top: 15px;}
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item p{height: 24px; line-height: 24px;}
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item p .checkbox{display: inline-block; width: 16px; height: 16px; background-position: -54px -46px; cursor: pointer; vertical-align: middle;}
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item p .checkbox.checked{background-position: -72px -46px;}
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item p span{margin-left: 10px; vertical-align: middle;}
+.pop_auth .pop_con .btn_row{text-align: center;}
+.pop_auth .pop_con .btn_row .btn_blue{margin: 0 10px;}
+
+
+.pop_auth .pop_con .auth_wrap .auth_bd .auth_item .checkbox {
+    background: url(./images/sprite.png) no-repeat;
+}

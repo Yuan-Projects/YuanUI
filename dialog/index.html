@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Insert title here</title>
+    <link rel="stylesheet" type="text/css" href="dialog.css" />
+    <link rel="stylesheet" type="text/css" href="app.css" />
+  </head>
+  <body>
+    <div id="authPop">
+                    <div class="user_name">用户名：<span>Erik</span></div> 
+                    <div class="auth_wrap">
+                        <div class="auth_hd">页面查看权限</div>
+                        <div class="auth_bd">
+                            <div class="auth_item">
+                                <p><b class="checkbox checked"></b><span>概览</span></p>    
+                            </div>
+                            <div class="auth_item">
+                                <p>平台总况</p> 
+                                <p><b class="checkbox"></b><span>日交易金额</span></p>
+                                <p><b class="checkbox"></b><span>日交易笔数</span></p>       
+                            </div>
+                            <div class="auth_item">
+                                <p>交易分析</p> 
+                                <p><b class="checkbox"></b><span>整体交易分析</span></p>
+                                <p><b class="checkbox"></b><span>支付交易分析</span></p>       
+                            </div>
+                        </div>
+                    </div>  
+                    <div class="btn_row">
+                        <button class="btn btn_white">继续新增</button><button class="btn btn_blue">确认</button><button class="btn btn_white cancel">取消</button>
+                    </div> 
+    </div>
+    <script src="../pagination/jquery-1.12.4.js"></script>
+    <script src="jquery.dialog.js"></script>
+    <script>
+      $(function() {
+        $('#authPop').dialog({
+          width: 520, 
+          customCls: 'pop_auth',
+          onaftershow: function(dialogRoot) {
+            //点击列表编辑按钮弹出编辑框
+            dialogRoot.on('click', ".auth_list .edit", function(){
+                var username = $(this).parents("tr").children("td:first-child").text();
+                $("#authPop").removeClass("none");
+                $("#authPop .user_name span").text(username);
+            });
+
+            //点击列表删除按钮删除本条数据
+            dialogRoot.on('click', ".delete", function(){
+                $(this).parents("tr").remove();
+            });
+
+            //点击关闭按钮关闭弹出框
+            dialogRoot.on('click', ".btn_close, .cancel", function(){
+                //$(".pop_wrapper").addClass("none");
+                $('#authPop').dialog('close');
+            });
+
+            //权限的选中与不选
+            dialogRoot.on('click', ".auth_item .checkbox", function(){
+                $(this).toggleClass("checked");
+            });
+
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
