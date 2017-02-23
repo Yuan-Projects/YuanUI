@@ -2,6 +2,7 @@
   $.fn.pagination = function(param1, param2) {
     var element = this;
     if ($.isPlainObject(param1)) {
+      if (this.data('options')) return ;
       var opts = $.extend({}, $.fn.pagination.defaults, param1);
       this.data('options', opts);
       buildElements(element);
