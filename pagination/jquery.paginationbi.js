@@ -1,0 +1,158 @@
+(function($){
+  $.fn.pagination = function(param1, param2) {
+    var element = this;
+    if ($.isPlainObject(param1)) {
+      if (this.data('options')) return ;
+      var opts = $.extend({}, $.fn.pagination.defaults, param1);
+      this.data('options', opts);
+      buildElements(element);
+      addEventListeners(element);
+
+    } else if (typeof param1 === "string") {
+      switch(param1) {
+        case "options": 
+          return element.data('options');
+          break;
+        case "loading":
+          break;
+        case "loaded":
+          break;
+        case "refresh":
+          refreshUI(element, param2);
+          break;
+        case "select":
+          if ($.isNumeric(param2)) {
+            gotoPage(element, param2);
+          } else {
+            refreshUI(element);
+          }
+          break;
+      }
+    }
+
+    return this;
+  };
+
+  $.fn.pagination.defaults = {
+    total: 1,
+    pageSize: 10,
+    pageNumber: 1,
+    loading: false,
+    onSelectPage: function(pageNumber, pageSize) {
+    }
+  };
+
+  function buildElements(element) {
+    var opts = element.data('options');
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    var tplstr = '<div class="page_wrap">\
+                      <div class="num_wrap">\
+                          <span>共<em>{total}</em>条记录，显示行数</span>\
+                          <select name="" id="">\
+                              <option value="20">20</option>\
+                              <option value="50">50</option>\
+                              <option value="100">100</option>\
+                          </select>\
+                          <span>页</span>\
+                      </div>\
+                      <ul>\
+                          <li class="page_prev border disable"><a href="#"></a></li>\
+                          <li class="page_next border"><a href="#"></a></li>\
+                          <li class="text t1">转到</li>\
+                          <li class="page_input"><input type="text" name="page_num"></li>\
+                          <li class="text">页</li>\
+                          <li class="page_go"><button>go</button></li>\
+                      </ul>\
+                  </div>';
+    tplstr = tplstr.replace('{total}', opts.total).replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
+    element.append($(tplstr));
+    
+    //buildPageNumberElements();
+    var pageNumberElements = [];
+    for(var i = 0; i < pages; i++) {
+      var page = i + 1;
+      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+    }
+    $(".page_prev").after(pageNumberElements.join(''));
+    
+    element.find('li[data-pagenum="'+opts.pageNumber+'"]').addClass('on');
+  }
+
+  function refreshUI(element, options) {
+    var opts = element.data('options');
+    if (options) {
+      if (options.total) {
+        opts.total = options.total;
+      }
+      // TODO validation
+      if (options.pageNumber) {
+        opts.pageNumber = options.pageNumber;
+      }
+    }
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    element.find('.cur_page em').text(opts.pageNumber);
+    element.find('.cur_page b').text(pages);
+    element.find('input').val('');
+  }
+  
+  function addEventListeners(element) {
+    element.on('click', '.page_prev', function(e) {
+      if ($(this).hasClass('disable')) return false;
+      gotoPage(element, 'prev');
+      return false;
+    });
+    element.on('click', '.page_next', function(e) {
+      if ($(this).hasClass('disable')) return false;
+      gotoPage(element, 'next');
+      return false;
+    });
+    element.on('click', 'li.page_go', function(e) {
+      var newPage = element.find('input').val();
+      if ($.isNumeric(newPage)) {
+        gotoPage(element, newPage);
+      }
+      return false;
+    });
+    element.on('click', 'li[data-pagenum]', function(e) {
+      var elm = $(this);
+      if (elm.hasClass('on')) return false;
+      var num = elm.attr('data-pagenum');
+      if ($.isNumeric(num) == false) return false;
+      gotoPage(element, num);
+    });
+  }
+  
+  function updatePageBtnsStyle(element) {
+    var opts = element.data('options');
+    var pageNumber = parseInt(opts.pageNumber);
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    element.find('li.page_num').removeClass('on');
+    element.find('li[data-pagenum="'+pageNumber+'"]').addClass('on');
+    element.find('.page_prev').toggleClass('disable', pageNumber < 2);
+    element.find('.page_next').toggleClass('disable', pageNumber == pages);
+  }
+
+  function gotoPage(element, newPage) {
+    var opts = element.data('options');
+    var pageNumber = opts.pageNumber;
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    var newPageNum;
+    if ($.isNumeric(newPage)) {
+      newPageNum = parseInt(newPage);
+    } else if (newPage === 'prev') {
+      newPageNum = pageNumber - 1;
+    } else if (newPage === 'next') {
+      newPageNum = pageNumber + 1;
+    }
+    // Valid new page 
+    if (typeof newPageNum === "number" && newPageNum > 0 && newPageNum <= pages) {
+      opts.pageNumber = newPageNum;
+      // refresh UI
+      element.find('.cur_page em').text(newPageNum);
+      updatePageBtnsStyle(element);
+      // trigger custom event
+      opts.onSelectPage(newPageNum);
+    }
+  }
+
+}(jQuery));
