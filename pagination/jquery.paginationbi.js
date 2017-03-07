@@ -75,10 +75,10 @@
     }
     $(".page_prev").after(pageNumberElements.join(''));
     
-    element.find('li[data-pagenum="'+opts.pageNumber+'"]').addClass('on');
-    
     // Select the default page size
     element.find('option[value="' + opts.pageSize + '"]').prop('selected', true);
+    
+    updatePageBtnsStyle(element);
   }
 
   function refreshUI(element, options) {
