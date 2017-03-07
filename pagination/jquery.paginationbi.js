@@ -99,11 +99,17 @@
       if (options.pageNumber) {
         opts.pageNumber = options.pageNumber;
       }
+      if (options.pageSize) {
+        opts.pageSize = options.pageSize;
+      }
     }
     var pages = Math.ceil(opts.total / opts.pageSize);
+    element.find('.num_wrap span em').text(opts.total);
     element.find('.cur_page em').text(opts.pageNumber);
     element.find('.cur_page b').text(pages);
     element.find('input').val('');
+    
+    element.find('select').val(opts.pageSize);
     
     // refresh pageNumberElements
     buildPageNumberElements(element);
