@@ -35,6 +35,7 @@
 
   $.fn.pagination.defaults = {
     total: 1,
+    pageList: [10, 20, 30, 50],
     pageSize: 10,
     pageNumber: 1,
     loading: false,
@@ -48,11 +49,7 @@
     var tplstr = '<div class="page_wrap">\
                       <div class="num_wrap">\
                           <span>共<em>{total}</em>条记录，显示行数</span>\
-                          <select name="" id="">\
-                              <option value="20">20</option>\
-                              <option value="50">50</option>\
-                              <option value="100">100</option>\
-                          </select>\
+                          <select name="" id="">\{pageList}</select>\
                           <span>页</span>\
                       </div>\
                       <ul>\
@@ -64,7 +61,10 @@
                           <li class="page_go"><button>go</button></li>\
                       </ul>\
                   </div>';
-    tplstr = tplstr.replace('{total}', opts.total).replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
+    var pageListDomStr = opts.pageList.map(function(v) {
+      return '<option value="'+v+'">'+v+'</option>';
+    });
+    tplstr = tplstr.replace('{total}', opts.total).replace('{pageList}', pageListDomStr).replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
     element.append($(tplstr));
     
     //buildPageNumberElements();
@@ -76,6 +76,9 @@
     $(".page_prev").after(pageNumberElements.join(''));
     
     element.find('li[data-pagenum="'+opts.pageNumber+'"]').addClass('on');
+    
+    // Select the default page size
+    element.find('option[value="' + opts.pageSize + '"]').prop('selected', true);
   }
 
   function refreshUI(element, options) {
