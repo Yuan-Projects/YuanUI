@@ -69,18 +69,24 @@
     tplstr = tplstr.replace('{total}', opts.total).replace('{pageList}', pageListDomStr).replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
     element.append($(tplstr));
     
-    //buildPageNumberElements();
-    var pageNumberElements = [];
-    for(var i = 0; i < pages; i++) {
-      var page = i + 1;
-      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
-    }
-    $(".page_prev").after(pageNumberElements.join(''));
+    buildPageNumberElements(element);
     
     // Select the default page size
     element.find('option[value="' + opts.pageSize + '"]').prop('selected', true);
     
     updatePageBtnsStyle(element);
+  }
+  
+  function buildPageNumberElements(element) {
+    var pageNumberElements = [];
+    var opts = element.data('options');
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    for(var i = 0; i < pages; i++) {
+      var page = i + 1;
+      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+    }
+    element.find('li.page_num').remove();
+    element.find(".page_prev").after(pageNumberElements.join(''));
   }
 
   function refreshUI(element, options) {
@@ -100,14 +106,8 @@
     element.find('input').val('');
     
     // refresh pageNumberElements
-    var pageNumberElements = [];
-    for(var i = 0; i < pages; i++) {
-      var page = i + 1;
-      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
-    }
-    element.find('li.page_num').remove();
-    element.find(".page_prev").after(pageNumberElements.join(''));
-    updatePageBtnsStyle(element)
+    buildPageNumberElements(element);
+    updatePageBtnsStyle(element);
   }
   
   function addEventListeners(element) {
@@ -139,10 +139,8 @@
     element.on('change', 'select', function(e) {
       var selectValue = $(this).val();
       if ($.isNumeric(selectValue) == false) return false;
-      var opts = element.data('options');
-      opts.pageSize = parseInt(selectValue);
-      refreshUI(element);
-      opts.onChangePageSize(opts.pageSize);
+      changePageSize(element, parseInt(selectValue));
+      
       return false;
     });
   }
@@ -155,6 +153,19 @@
     element.find('li[data-pagenum="'+pageNumber+'"]').addClass('on');
     element.find('.page_prev').toggleClass('disable', pageNumber < 2);
     element.find('.page_next').toggleClass('disable', pageNumber == pages);
+  }
+  
+  function changePageSize(element, pageSize) {
+    var opts = element.data('options');
+    
+    if (typeof pageSize !== "number") return false;
+    opts.pageSize = pageSize;
+    var pages = Math.ceil(opts.total / opts.pageSize);
+    if (opts.pageNumber > pages) {
+      opts.pageNumber = pages;
+    }
+    refreshUI(element);
+    opts.onChangePageSize(opts.pageSize);
   }
 
   function gotoPage(element, newPage) {
