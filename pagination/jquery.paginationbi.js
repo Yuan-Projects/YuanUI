@@ -39,6 +39,8 @@
     pageSize: 10,
     pageNumber: 1,
     loading: false,
+    onChangePageSize: function(pageSize) {
+    },
     onSelectPage: function(pageNumber, pageSize) {
     }
   };
@@ -96,6 +98,16 @@
     element.find('.cur_page em').text(opts.pageNumber);
     element.find('.cur_page b').text(pages);
     element.find('input').val('');
+    
+    // refresh pageNumberElements
+    var pageNumberElements = [];
+    for(var i = 0; i < pages; i++) {
+      var page = i + 1;
+      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+    }
+    element.find('li.page_num').remove();
+    element.find(".page_prev").after(pageNumberElements.join(''));
+    updatePageBtnsStyle(element)
   }
   
   function addEventListeners(element) {
@@ -122,6 +134,16 @@
       var num = elm.attr('data-pagenum');
       if ($.isNumeric(num) == false) return false;
       gotoPage(element, num);
+    });
+    
+    element.on('change', 'select', function(e) {
+      var selectValue = $(this).val();
+      if ($.isNumeric(selectValue) == false) return false;
+      var opts = element.data('options');
+      opts.pageSize = parseInt(selectValue);
+      refreshUI(element);
+      opts.onChangePageSize(opts.pageSize);
+      return false;
     });
   }
   
