@@ -81,11 +81,35 @@
     var pageNumberElements = [];
     var opts = element.data('options');
     var pages = Math.ceil(opts.total / opts.pageSize);
-    for(var i = 0; i < pages; i++) {
-      var page = i + 1;
-      pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+    var currentPage = opts.pageNumber;
+    if (pages <= 6) {
+      for(var i = 0; i < pages; i++) {
+        var page = i + 1;
+        pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+      }
+    } else {
+      if (currentPage <= 3 || currentPage >= pages - 2) {
+        for(var i = 0; i < 3; i++) {
+          var page = i + 1;
+          pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+        }
+        pageNumberElements.push('<li class="page_ellip"><a href="#">...</a></li>');
+      } else {
+        for(var i = currentPage - 3; i < currentPage; i++) {
+          var page = i + 1;
+          pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+        }
+        if (currentPage + 3 != pages) {
+          pageNumberElements.push('<li class="page_ellip"><a href="#">...</a></li>');
+        }
+      }
+      for(var i = pages - 3; i < pages; i++) {
+        var page = i + 1;
+        pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
+      }
     }
-    element.find('li.page_num').remove();
+    
+    element.find('li.page_num, li.page_ellip').remove();
     element.find(".page_prev").after(pageNumberElements.join(''));
   }
 
@@ -149,6 +173,14 @@
       
       return false;
     });
+    
+    element.on('keypress', 'input[name="page_num"]', function(e) {
+      e.stopPropagation();
+      var key = e.which;
+      if(key == 13) {
+        element.find('li.page_go').click();
+      }
+    });
   }
   
   function updatePageBtnsStyle(element) {
@@ -191,7 +223,8 @@
       opts.pageNumber = newPageNum;
       // refresh UI
       element.find('.cur_page em').text(newPageNum);
-      updatePageBtnsStyle(element);
+      //updatePageBtnsStyle(element);
+      refreshUI(element);
       // trigger custom event
       opts.onSelectPage(newPageNum);
     }
