@@ -6,28 +6,330 @@
     <link rel="stylesheet" href="jquery.paginationbi.css" />
   </head>
   <body>
-    <div id="pp"></div>
+    <h2>用法</h2>
+    <h3>引入所需的文件</h3>
+    <p>引入JS</p>
+    <code>&lt;script src="PATH_TO_FILE/jquery.pagination.js"&gt;&lt;/script&gt;</code>
+    <p>引入CSS</p>
+    <code>&lt;link rel="stylesheet" href="PATH_TO_FILE/jquery.pagination.css" /&gt;</code>
+    <p>确保CSS文件中指向图片的路径是正确的。</p>
+
+    <h3>基础用法</h3>
+
+    <p>在HTML页面中增加一个 div 元素，为它设置一个id属性，确保它在页面中是唯一的。</p>
+    <code>&lt;div id="pagination"&gt;&lt;/div&gt;</code>
+
+    <p>初始化分页插件，传递一个配置对象字面量到 pagination 方法。更多的可配置参数见<a href="#optionlist" style="color: -webkit-link; text-decoration: underline;">配置参数列表</a>。</p>
+    <pre>
+  $('#pagination').pagination({
+    total: 0
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination"></div>
+
+    <h3>设置总记录数为 100</h3>
+    <code>&lt;div id="pagination2"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination2').pagination({
+    total: 100
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination2"></div>
+
+
+    <h3>设置pageList</h3>
+    <code>&lt;div id="pagination3"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination3').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100]
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination3"></div>
+
+
+    <h3>设置每页显示30条记录</h3>
+    <code>&lt;div id="pagination4"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination4').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination4"></div>
+
+
+    <h3>设置默认当前页码数为第2页</h3>
+    <code>&lt;div id="pagination5"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination5').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 2
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination5"></div>
+
+
+    <h3>监听每页显示记录数变化</h3>
+    <p>请调整下拉框的值观察变化</p>
+    <code>&lt;div id="pagination6"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination6').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 2,
+    onChangePageSize: function(pageSize) {
+      alert('当前每页显示'+pageSize+'条数据');
+    }
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination6"></div>
+
+
+    <h3>监听页码数变化</h3>
+    <p>请点击页面数字观察变化</p>
+    <code>&lt;div id="pagination7"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination7').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 2,
+    onSelectPage: function(pageNumber, pageSize) {
+      alert('当前页码数是：'+ pageNumber);
+    }
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination7"></div>
+
+    <h3>得到插件的配置参数</h3>
+    <p>在分页插件初始化之后，可以查询它的配置参数，通过 <code>options</code> 方法完成。点击下方的按钮将获得当前的总记录数。</p>
+    <code>&lt;div id="pagination8"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination8').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 2
+  });
+
+  $('#pagination8-btn').on('click', function() {
+    var option = $('#pagination8').pagination('options');
+    alert('总记录数为：'+option.total);
+    return false;
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination8"></div>
+    <div><button id="pagination8-btn">点击查询总记录数</button></div>
+
+    <h3>刷新分页插件</h3>
+    <p>分页插件初始化之后，可以刷新插件。点击下方按钮将会把总记录条数设置为200，当前页码数修改为第3页。</p>
+    <code>&lt;div id="pagination9"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination9').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 2
+  });
+  $('#pagination9-btn').on('click', function() {
+    var option = $('#pagination9').pagination('refresh', {
+      total: 200,
+      pageNumber: 3
+    });
+    return false;
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination9"></div>
+    <div><button id="pagination9-btn">点击刷新插件</button></div>
+
+    <h3>使用程序实现页码跳转</h3>
+    <p>分页插件初始化之后，也可以用JS代码实现页码跳转，点击下方按钮，当前页码数跳转到第2页。</p>
+    <code>&lt;div id="pagination10"&gt;&lt;/div&gt;</code>
+    <pre>
+  $('#pagination10').pagination({
+    total: 100,
+    pageList: [10, 30, 50, 100],
+    pageSize: 30,
+    pageNumber: 1
+  });
+  $('#pagination10-btn').on('click', function() {
+    var option = $('#pagination10').pagination('select', 2);
+    return false;
+  });
+    </pre>
+    <p>示例：</p>
+    <div id="pagination10"></div>
+    <div><button id="pagination10-btn">点击跳转到第2页</button></div>
+
+    <h2 id="optionlist">配置参数列表</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>属性名</th>
+          <th>类型</th>
+          <th>默认值</th>
+          <td>含义</td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>total</td>
+          <td>Integer</td>
+          <td>0</td>
+          <td>总记录数</td>
+        </tr>
+        <tr>
+          <td>pageList</td>
+          <td>Array</td>
+          <td>[10, 20, 30, 50]</td>
+          <td>一个数组，用于生成一个下拉框，控制每页显示的记录数。</td>
+        </tr>
+        <tr>
+          <td>pageSize</td>
+          <td>Integer</td>
+          <td>10</td>
+          <td>每页的显示记录数</td>
+        </tr>
+        <tr>
+          <td>pageNumber</td>
+          <td>Integer</td>
+          <td>1</td>
+          <td>当前页码数</td>
+        </tr>
+        <tr>
+          <td>onChangePageSize</td>
+          <td>Function</td>
+          <td>function(pageSize) {}</td>
+          <td>当每页显示的条数发生变化时的回调函数。</td>
+        </tr>
+        <tr>
+          <td>onSelectPage</td>
+          <td>Function</td>
+          <td>function(pageNumber, pageSize) {}</td>
+          <td>当页码数发生变化时的回调函数。</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="methods">方法列表</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>方法名字</th>
+          <th>说明</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>options</td>
+          <td>查询插件设置配置参数</td>
+        </tr>
+        <tr>
+          <td>refresh</td>
+          <td>刷新分页插件</td>
+        </tr>
+        <tr>
+          <td>select</td>
+          <td>选择指定的页面数</td>
+        </tr>
+      </tbody>
+    </table>
     <script src="jquery-1.12.4.js"></script>
     <script src="jquery.paginationbi.js"></script>
     <script>
       $(function(){
-        $('#pp').pagination({
-          total: 101,
-          pageNumber: 4,
-          pageSize: 10,
-          onSelectPage: function(pageNumber) {
-            debugger;
+        $('#pagination').pagination({
+          total: 0
+        });
+        $('#pagination2').pagination({
+          total: 100
+        });
+        $('#pagination3').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100]
+        });
+        $('#pagination4').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30
+        });
+        $('#pagination5').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 2
+        });
+        $('#pagination6').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 2,
+          onChangePageSize: function(pageSize) {
+            alert('当前每页显示'+pageSize+'条数据');
           }
         });
-        
-        setTimeout(function() {
-          $('#pp').pagination('refresh', {
-            total: 101,
-            pageSize: 10,
+        $('#pagination7').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 2,
+          onSelectPage: function(pageNumber, pageSize) {
+            alert('当前页码数是：'+ pageNumber);
+          }
+        });
+
+        $('#pagination8').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 2
+        });
+
+        $('#pagination8-btn').on('click', function() {
+          var option = $('#pagination8').pagination('options');
+          alert('总记录数为：'+option.total);
+          return false;
+        });
+
+        $('#pagination9').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 2
+        });
+        $('#pagination9-btn').on('click', function() {
+          var option = $('#pagination9').pagination('refresh', {
+            total: 200,
             pageNumber: 3
           });
-        }, 5000);
-        
+          return false;
+        });
+
+        $('#pagination10').pagination({
+          total: 100,
+          pageList: [10, 30, 50, 100],
+          pageSize: 30,
+          pageNumber: 1
+        });
+        $('#pagination10-btn').on('click', function() {
+          var option = $('#pagination10').pagination('select', 2);
+          return false;
+        });
+
       });
     </script>
   </body>
