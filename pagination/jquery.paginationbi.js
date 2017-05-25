@@ -10,7 +10,7 @@
 
     } else if (typeof param1 === "string") {
       switch(param1) {
-        case "options": 
+        case "options":
           return element.data('options');
           break;
         case "loading":
@@ -68,15 +68,15 @@
     });
     tplstr = tplstr.replace('{total}', opts.total).replace('{pageList}', pageListDomStr).replace('{pageNumber}', opts.pageNumber).replace('{pages}', pages);
     element.append($(tplstr));
-    
+
     buildPageNumberElements(element);
-    
+
     // Select the default page size
     element.find('option[value="' + opts.pageSize + '"]').prop('selected', true);
-    
+
     updatePageBtnsStyle(element);
   }
-  
+
   function buildPageNumberElements(element) {
     var pageNumberElements = [];
     var opts = element.data('options');
@@ -108,7 +108,7 @@
         pageNumberElements.push('<li class="page_num" data-pagenum="'+ page +'"><a href="javascript:void(0);">' + page + '</a></li>');
       }
     }
-    
+
     element.find('li.page_num, li.page_ellip').remove();
     element.find(".page_prev").after(pageNumberElements.join(''));
   }
@@ -116,7 +116,7 @@
   function refreshUI(element, options) {
     var opts = element.data('options');
     if (options) {
-      if (options.total) {
+      if (typeof options.total === "number") {
         opts.total = options.total;
       }
       // TODO validation
@@ -132,14 +132,14 @@
     element.find('.cur_page em').text(opts.pageNumber);
     element.find('.cur_page b').text(pages);
     element.find('input').val('');
-    
+
     element.find('select').val(opts.pageSize);
-    
+
     // refresh pageNumberElements
     buildPageNumberElements(element);
     updatePageBtnsStyle(element);
   }
-  
+
   function addEventListeners(element) {
     element.on('click', '.page_prev', function(e) {
       if ($(this).hasClass('disable')) return false;
@@ -165,15 +165,15 @@
       if ($.isNumeric(num) == false) return false;
       gotoPage(element, num);
     });
-    
+
     element.on('change', 'select', function(e) {
       var selectValue = $(this).val();
       if ($.isNumeric(selectValue) == false) return false;
       changePageSize(element, parseInt(selectValue));
-      
+
       return false;
     });
-    
+
     element.on('keypress', 'input[name="page_num"]', function(e) {
       e.stopPropagation();
       var key = e.which;
@@ -182,7 +182,7 @@
       }
     });
   }
-  
+
   function updatePageBtnsStyle(element) {
     var opts = element.data('options');
     var pageNumber = parseInt(opts.pageNumber);
@@ -192,10 +192,10 @@
     element.find('.page_prev').toggleClass('disable', pageNumber < 2);
     element.find('.page_next').toggleClass('disable', pageNumber == pages);
   }
-  
+
   function changePageSize(element, pageSize) {
     var opts = element.data('options');
-    
+
     if (typeof pageSize !== "number") return false;
     opts.pageSize = pageSize;
     var pages = Math.ceil(opts.total / opts.pageSize);
@@ -218,7 +218,7 @@
     } else if (newPage === 'next') {
       newPageNum = pageNumber + 1;
     }
-    // Valid new page 
+    // Valid new page
     if (typeof newPageNum === "number" && newPageNum > 0 && newPageNum <= pages) {
       opts.pageNumber = newPageNum;
       // refresh UI
