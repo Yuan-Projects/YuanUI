@@ -5,13 +5,14 @@ function Calendar(options) {
   insertToDOM();
 
   function createRootElement() {
-    var rootElement = document.createElement('div');
+    var tag = Calendar.utils.tag;
+    var rootElement = tag('div');
 
-    var headerTable = document.createElement('table');
-    var headerTableTr = document.createElement('tr');
-    var headerTableTd1 = document.createElement('td'),
-        headerTableTd2 = document.createElement('td'),
-        headerTableTd3 = document.createElement('td');
+    var headerTable = tag('table');
+    var headerTableTr = tag('tr');
+    var headerTableTd1 = tag('td'),
+        headerTableTd2 = tag('td'),
+        headerTableTd3 = tag('td');
 
     var todayObject = Calendar.utils.getToday();
     headerTableTd1.className = 'rangeIndicator';
@@ -26,8 +27,8 @@ function Calendar(options) {
 
     headerTable.appendChild(headerTableTr);
 
-    var dateTable = document.createElement('table'),
-        dateTableThead = document.createElement('tr');
+    var dateTable = tag('table'),
+        dateTableThead = tag('tr');
 
     dateTableThead.innerHTML = '<td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td>';
 
@@ -57,5 +58,8 @@ Calendar.utils = {
       month: today.getMonth() + 1,
       day: today.getDate()
     }
+  },
+  tag: function(tagName) {
+    return document.createElement(tagName);
   }
 };
