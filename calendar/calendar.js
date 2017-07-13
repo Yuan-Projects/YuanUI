@@ -28,11 +28,27 @@ function Calendar(options) {
     headerTable.appendChild(headerTableTr);
 
     var dateTable = tag('table'),
-        dateTableThead = tag('tr');
+        dateTableThead = tag('thead'),
+        dateTableTbody = tag('tbody'),
+        dateTableTheadTr = tag('tr');
 
-    dateTableThead.innerHTML = '<td>一</td><td>二</td><td>三</td><td>四</td><td>五</td><td>六</td><td>日</td>';
+    var dateTableTr, dateTableTd;
 
+    dateTableTheadTr.innerHTML = '<th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th>';
     dateTable.appendChild(dateTableThead);
+    dateTable.appendChild(dateTableTbody);
+
+    dateTableThead.appendChild(dateTableTheadTr);
+
+
+    for (var i = 0; i < 6; i++) {
+      dateTableTr = tag('tr');
+      for (var j = 6 ; j >= 0; j--) {
+        dateTableTd = tag('td');
+        dateTableTr.appendChild(dateTableTd);
+      }
+      dateTableTbody.appendChild(dateTableTr);
+    }
 
 
 
