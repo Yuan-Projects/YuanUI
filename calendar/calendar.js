@@ -16,7 +16,7 @@ function Calendar(options) {
         headerTableTd2 = tag('td'),
         headerTableTd3 = tag('td');
 
-    var todayObject = Calendar.utils.getToday();
+    var todayObject = Calendar.utils.date.getToday();
     headerTableTd1.className = 'rangeIndicator';
     headerTableTd1.innerHTML = todayObject.year + '年' + todayObject.month + '月';
 
@@ -67,12 +67,53 @@ Calendar.utils = {
   insertAfter: function(newElement, targetElement) {
     targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
   },
-  getToday: function() {
-    var today = new Date();
-    return {
-      year: today.getFullYear(),
-      month: today.getMonth() + 1,
-      day: today.getDate()
+  date: {
+    // month is 1-based
+    monthInfo: function(year, month) {
+      var firstDay = Calendar.utils.date.getFirstDayOfMonth(year, month);
+      var lastDay = Calendar.utils.date.getLastDayOfMonth(year, month)
+      return {
+        days: lastDay.date, // How many days in this month
+        firstDayOfWeek: firstDay.day,
+        lastDayOfWeek: lastDay.day
+      }
+    },
+    getToday: function() {
+      return Calendar.utils.date.dayInfo();
+    },
+    // month is 1-based
+    getFirstDayOfMonth: function(year, month) {
+      if (typeof year !== "number" || typeof month !== "number") {
+        throw new Error('year and month must be numbers');
+      }
+      return Calendar.utils.date.dayInfo(year, month, 1);
+    },
+    // month is 1-based
+    getLastDayOfMonth: function(year, month) {
+      if (typeof year !== "number" || typeof month !== "number") {
+        throw new Error('year and month must be numbers');
+      }
+      var d = new Date(year, month);
+      d.setDate(d.getDate() - 1);
+      return Calendar.utils.date.dayInfo(d);
+    },
+    // month is 1-based
+    dayInfo: function(year, month, date) {
+      var d;
+      if (year instanceof Date) {
+        d = year;
+      } else if (typeof year === "number" && typeof month === "number" && typeof date === "number") {
+        d = new Date(year, month - 1, date);
+      } else {
+        d = new Date();
+      }
+      var day = d.getDay();
+      return {
+        year: d.getFullYear(),
+        month: d.getMonth() + 1,
+        date: d.getDate(), //the day of the month (1-31)
+        day: day ? day : 7 // the day of the week (1-7)
+      }
     }
   },
   tag: function(tagName, options) {
