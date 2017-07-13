@@ -1,5 +1,6 @@
 function Calendar(options) {
   this.inputElement = options.inputElement;
+  this.dateTableElement = null;
   var that = this;
 
   insertToDOM();
@@ -54,6 +55,8 @@ function Calendar(options) {
 
     rootElement.appendChild(headerTable);
     rootElement.appendChild(dateTable);
+
+    that.dateTableElement = dateTable;
     return rootElement;
   }
 
@@ -61,6 +64,18 @@ function Calendar(options) {
     var rootElement = createRootElement();
     Calendar.utils.insertAfter(rootElement, that.inputElement);
   }
+
+  function renderDatesInTable() {
+    var tds = that.dateTableElement.querySelectorAll('td');
+    var now = new Date();
+    var monthInfo = Calendar.utils.date.monthInfo(now.getFullYear(), 5);
+    var thisDate = 1;
+    for (var i = monthInfo.firstDayOfWeek; i < monthInfo.days + monthInfo.firstDayOfWeek; i++) {
+      tds[i - 1].innerHTML = thisDate++;
+    }
+  }
+
+  renderDatesInTable();
 }
 
 Calendar.utils = {
