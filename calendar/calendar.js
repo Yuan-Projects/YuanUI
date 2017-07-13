@@ -6,7 +6,7 @@ function Calendar(options) {
   insertToDOM();
 
   function createRootElement() {
-    var tag = Calendar.utils.tag;
+    var tag = Calendar.utils.dom.tag;
     var rootElement = tag('div', {
       className: 'yuanui-calendar'
     });
@@ -62,7 +62,7 @@ function Calendar(options) {
 
   function insertToDOM() {
     var rootElement = createRootElement();
-    Calendar.utils.insertAfter(rootElement, that.inputElement);
+    Calendar.utils.dom.insertAfter(rootElement, that.inputElement);
   }
 
   function renderDatesInTable() {
@@ -79,8 +79,19 @@ function Calendar(options) {
 }
 
 Calendar.utils = {
-  insertAfter: function(newElement, targetElement) {
-    targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
+  dom: {
+    insertAfter: function(newElement, targetElement) {
+      targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
+    },
+    tag: function(tagName, options) {
+      var element = document.createElement(tagName);
+      if (options && Object.prototype.toString.call(options) === "[object Object]") {
+        for (var prop in options) {
+          element[prop] = options[prop];
+        }
+      }
+      return element;
+    }
   },
   date: {
     // month is 1-based
@@ -130,14 +141,5 @@ Calendar.utils = {
         day: day ? day : 7 // the day of the week (1-7)
       }
     }
-  },
-  tag: function(tagName, options) {
-    var element = document.createElement(tagName);
-    if (options && Object.prototype.toString.call(options) === "[object Object]") {
-      for (var prop in options) {
-        element[prop] = options[prop];
-      }
-    }
-    return element;
   }
 };
