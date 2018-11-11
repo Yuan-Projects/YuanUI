@@ -68,11 +68,10 @@ function Calendar(options) {
   function renderDatesInTable() {
     var tds = that.dateTableElement.querySelectorAll('td');
     var now = new Date();
-    var monthInfo = Calendar.utils.date.monthInfo(now.getFullYear(), 5);
-    var thisDate = 1;
-    for (var i = monthInfo.firstDayOfWeek; i < monthInfo.days + monthInfo.firstDayOfWeek; i++) {
-      tds[i - 1].innerHTML = thisDate++;
-    }
+    var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(now.getFullYear(), now.getMonth() + 1);
+    monthInfo.forEach(function(currentValue, index, array) {
+      tds[index].innerHTML = currentValue.date;
+    });
   }
 
   renderDatesInTable();
@@ -94,12 +93,43 @@ Calendar.utils = {
     }
   },
   date: {
+    getCalendarDaysInMonth: function(year, month) {
+      var result = [];
+      var thisMonthInfo = Calendar.utils.date.monthInfo(year, month);
+      var firstDayOfWeek = thisMonthInfo.firstDayOfWeek;
+      var lastShiftDays = firstDayOfWeek > 1 ? (firstDayOfWeek -1) : (firstDayOfWeek + 7 - 1);
+      
+      var lastMonth = new Date(year, month - 2, 1);
+      
+      result = result.concat(Calendar.utils.date.getLastDatesOfMonth(lastMonth.getFullYear(), lastMonth.getMonth() + 1, lastShiftDays));
+      for (var i = 1, len = thisMonthInfo.days; i <= len; i++) {
+        result.push(Calendar.utils.date.dayInfo(year, month, i));
+      }
+      for (var j = 1, len1 = 42 - thisMonthInfo.days - lastShiftDays; j <= len1; j++) {
+        result.push(Calendar.utils.date.dayInfo(year, month+1, j));
+      }
+      return result;
+    },
+    getLastDatesOfMonth: function(year, month, count) {
+      var result = [];
+      var thisMonthInfo = Calendar.utils.date.monthInfo(year, month);
+      while(count--) {
+        var m = count % 7;
+        result.push(Object.assign({}, thisMonthInfo.lastDay, {
+          date: thisMonthInfo.lastDay.date - count,
+          day: (thisMonthInfo.lastDay.day + 7 - m)%7
+        }));
+      }
+      return result;
+    },
     // month is 1-based
     monthInfo: function(year, month) {
       var firstDay = Calendar.utils.date.getFirstDayOfMonth(year, month);
       var lastDay = Calendar.utils.date.getLastDayOfMonth(year, month)
       return {
         days: lastDay.date, // How many days in this month
+        firstDay: firstDay,
+        lastDay: lastDay,
         firstDayOfWeek: firstDay.day,
         lastDayOfWeek: lastDay.day
       }
@@ -123,7 +153,21 @@ Calendar.utils = {
       d.setDate(d.getDate() - 1);
       return Calendar.utils.date.dayInfo(d);
     },
-    // month is 1-based
+    /**
+     * Returns an object represents a specific date. especialy the day of the week (0-6) for the specified date according to local time.
+     * @param {*} [year] - The value representing the year.
+     * @param {number} [month] - The value representing the month, beginning with 1 for January to 12 for December.
+     * @param {*} [year] - The value representing the day of the month.
+     * @return {Object} An object represents a specific date.
+     * @example 
+     * // eg:
+     * {
+     *   year: 2018,
+     *   month: 11,
+     *   date: 30,
+     *   day: 5
+     * }
+     */
     dayInfo: function(year, month, date) {
       var d;
       if (year instanceof Date) {
@@ -138,7 +182,7 @@ Calendar.utils = {
         year: d.getFullYear(),
         month: d.getMonth() + 1,
         date: d.getDate(), //the day of the month (1-31)
-        day: day ? day : 7 // the day of the week (1-7)
+        day: day // the day of the week (0-6)
       }
     }
   }
