@@ -9,3 +9,12 @@
 
   color: white;
 }
+
+.yuanui-calendar table tr td {
+  text-align: center;
+  cursor: pointer;
+}
+
+.yuanui-calendar table tr td:hover {
+  outline: 1px solid white;
+}
