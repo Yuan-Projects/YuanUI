@@ -1,0 +1,14 @@
+{
+  "name": "yuanui-calendar",
+  "version": "1.0.0",
+  "description": "The calendar component",
+  "main": "calendar.js",
+  "scripts": {
+    "test": "qunit"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "qunit": "^2.8.0"
+  }
+}
