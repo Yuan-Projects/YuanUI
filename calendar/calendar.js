@@ -83,10 +83,12 @@ Calendar.prototype.addEventListeners = function() {
     var target = e.target;
     if (target.classList.contains('uparrow')) {
       that.month--;
+      that.normalizeYearMonth();
       that.renderDatesInTable(that.year, that.month);
       that.renderHeaderTableDate();
     } else if (target.classList.contains('downarrow')) {
       that.month++;
+      that.normalizeYearMonth();
       that.renderDatesInTable(that.year, that.month);
       that.renderHeaderTableDate();
     }
@@ -104,6 +106,12 @@ Calendar.prototype.renderDatesInTable = function(year, month) {
 
 Calendar.prototype.renderHeaderTableDate = function() {
   this.headerTable.querySelector('.rangeIndicator').innerHTML = String(this.year) + "年" + String(this.month) + "月";
+};
+
+Calendar.prototype.normalizeYearMonth = function() {
+  var date = new Date(this.year, this.month - 1);
+  this.year = date.getFullYear();
+  this.month = date.getMonth() + 1;
 };
 
 Calendar.utils = {
