@@ -93,6 +93,12 @@ Calendar.utils = {
     }
   },
   date: {
+    /**
+     * Returns all calendars days in a specific month.
+     * @param {number} year - The value representing the year.
+     * @param {number} month - The value representing the month, beginning with 1 for January to 12 for December.
+     * @return {Array} An array represents all calendar days in a month.
+     */
     getCalendarDaysInMonth: function(year, month) {
       var result = [];
       var thisMonthInfo = Calendar.utils.date.monthInfo(year, month);
