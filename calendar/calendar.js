@@ -219,7 +219,7 @@ Calendar.utils = {
         month: d.getMonth() + 1,
         date: d.getDate(), //the day of the month (1-31)
         day: day // the day of the week (0-6)
-      }
+      };
     }
   }
 };
