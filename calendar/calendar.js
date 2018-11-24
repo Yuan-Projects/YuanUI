@@ -96,10 +96,19 @@ Calendar.prototype.addEventListeners = function() {
 };
 
 Calendar.prototype.renderDatesInTable = function(year, month) {
+  var that = this;
   var tds = this.dateTableElement.querySelectorAll('td');
+  var now = new Date();
   
   var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(year, month);
   monthInfo.forEach(function(currentValue, index, array) {
+    var cls = "";
+    if (currentValue.year === now.getFullYear() && currentValue.month === (now.getMonth() + 1) && currentValue.date === now.getDate()) {
+      cls = "currentDate";
+    } else if (currentValue.year === that.year && currentValue.month === that.month) {
+      cls = "currentMonth";
+    }
+    tds[index].className = cls;
     tds[index].innerHTML = currentValue.date;
   });
 };
