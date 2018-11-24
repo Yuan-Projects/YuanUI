@@ -55,7 +55,6 @@ QUnit.test('The last three days in October, 2018', function(assert) {
     day: 3 // the day of the week (0-6)
   });
 });
-
 QUnit.test('The last two days in November, 2018', function(assert) {
   var lastDays = Calendar.utils.date.getLastDatesOfMonth(2018, 11, 2);
   assert.equal(lastDays.length, 2, "2 days returned as expected");
@@ -71,4 +70,42 @@ QUnit.test('The last two days in November, 2018', function(assert) {
     date: 30, //the day of the month (1-31)
     day: 5 // the day of the week (0-6)
   });
+});
+
+QUnit.module("Calendar.utils.date.monthInfo");
+QUnit.test('November 2014 information', function(assert) {
+  var info = Calendar.utils.date.monthInfo(2014, 11);
+  assert.equal(info.days, 30, "There are 30 days in November, 2014");
+  assert.deepEqual(info.firstDay, {
+    year: 2014,
+    month: 11,
+    date: 1,
+    day: 6
+  }, "The first day of this month is November 1, 2014, it's a Saturday.");
+  assert.deepEqual(info.lastDay, {
+    year: 2014,
+    month: 11,
+    date: 30,
+    day: 0
+  }, "The last day of this month is November 1, 2014, it's a Sunday.");
+  assert.equal(info.firstDayOfWeek, 6, "The first day is a Saturday.");
+  assert.equal(info.lastDayOfWeek, 0, "The last day is a Sunday.");
+});
+QUnit.test('January 2019 information', function(assert) {
+  var info = Calendar.utils.date.monthInfo(2019, 1);
+  assert.equal(info.days, 31, "There are 31 days in January, 2019");
+  assert.deepEqual(info.firstDay, {
+    year: 2019,
+    month: 1,
+    date: 1,
+    day: 2
+  }, "The first day of this month is January 1, 2019, it's a Tuesday.");
+  assert.deepEqual(info.lastDay, {
+    year: 2019,
+    month: 1,
+    date: 31,
+    day: 4
+  }, "The last day of this month is January 31, 2019, it's a Thursday.");
+  assert.equal(info.firstDayOfWeek, 2, "The first day is a Tuesday.");
+  assert.equal(info.lastDayOfWeek, 4, "The last day is a Thursday.");
 });
