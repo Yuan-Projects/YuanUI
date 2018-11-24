@@ -116,6 +116,14 @@ Calendar.utils = {
       }
       return result;
     },
+    /**
+     * Returns the last few days in a specific month.
+     * @param {number} year - The value representing the year.
+     * @param {number} month - The value representing the month, beginning with 1 for January to 12 for December.
+     * @param {number} count - The number of days to be counted.
+     * @return {Array} An array represents last days in a month.
+     *
+     */
     getLastDatesOfMonth: function(year, month, count) {
       var result = [];
       var thisMonthInfo = Calendar.utils.date.monthInfo(year, month);
@@ -128,7 +136,13 @@ Calendar.utils = {
       }
       return result;
     },
-    // month is 1-based
+    /**
+     * Returns an object presenting a specific month.
+     * @param {number} year - The value representing the year.
+     * @param {number} month - The value representing the month, beginning with 1 for January to 12 for December.
+     * @return {Object} An Object presenting a specific month.
+     *
+     */
     monthInfo: function(year, month) {
       var firstDay = Calendar.utils.date.getFirstDayOfMonth(year, month);
       var lastDay = Calendar.utils.date.getLastDayOfMonth(year, month)
@@ -140,17 +154,33 @@ Calendar.utils = {
         lastDayOfWeek: lastDay.day
       }
     },
+    /**
+     * Returns the date information of today.
+     * @return {Object} The date information.
+     */
     getToday: function() {
       return Calendar.utils.date.dayInfo();
     },
-    // month is 1-based
+    /**
+     * Returns the first day in a specific month.
+     * @param {number} year - The value representing the year.
+     * @param {number} month - The value representing the month, beginning with 1 for January to 12 for December.
+     * @return {Object} An Object presenting the first day.
+     *
+     */
     getFirstDayOfMonth: function(year, month) {
       if (typeof year !== "number" || typeof month !== "number") {
         throw new Error('year and month must be numbers');
       }
       return Calendar.utils.date.dayInfo(year, month, 1);
     },
-    // month is 1-based
+    /**
+     * Returns the last day in a specific month.
+     * @param {number} year - The value representing the year.
+     * @param {number} month - The value representing the month, beginning with 1 for January to 12 for December.
+     * @return {Object} An Object presenting the last day.
+     *
+     */
     getLastDayOfMonth: function(year, month) {
       if (typeof year !== "number" || typeof month !== "number") {
         throw new Error('year and month must be numbers');
