@@ -109,3 +109,63 @@ QUnit.test('January 2019 information', function(assert) {
   assert.equal(info.firstDayOfWeek, 2, "The first day is a Tuesday.");
   assert.equal(info.lastDayOfWeek, 4, "The last day is a Thursday.");
 });
+
+QUnit.module("Calendar.utils.date.getFirstDayOfMonth");
+QUnit.test('Returns the first day of October, 2018', function(assert) {
+  var info = Calendar.utils.date.getFirstDayOfMonth(2018, 10);
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 10,
+    date: 1,
+    day: 1
+  }, "The first day of this month is October 1, 2018, it's a Monday.");
+});
+QUnit.test('Returns the first day of September, 2018', function(assert) {
+  var info = Calendar.utils.date.getFirstDayOfMonth(2018, 9);
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 9,
+    date: 1,
+    day: 6
+  }, "The first day of this month is September 1, 2018, it's a Saturday.");
+});
+
+QUnit.module("Calendar.utils.date.getLastDayOfMonth");
+QUnit.test('Returns the last day of October, 2018', function(assert) {
+  var info = Calendar.utils.date.getLastDayOfMonth(2018, 10);
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 10,
+    date: 31,
+    day: 3
+  }, "The last day of this month is October 31, 2018, it's a Wednesday.");
+});
+QUnit.test('Returns the last day of September, 2018', function(assert) {
+  var info = Calendar.utils.date.getLastDayOfMonth(2018, 9);
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 9,
+    date: 30,
+    day: 0
+  }, "The last day of this month is September 30, 2018, it's a Sunday.");
+});
+
+QUnit.module("Calendar.utils.date.dayInfo");
+QUnit.test('Call this function with a Date() instance', function(assert) {
+  var info = Calendar.utils.date.dayInfo(new Date(2018, 8, 7));
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 9,
+    date: 7,
+    day: 5
+  });
+});
+QUnit.test('Call this function with three parameters', function(assert) {
+  var info = Calendar.utils.date.dayInfo(2018, 9, 7);
+  assert.deepEqual(info, {
+    year: 2018,
+    month: 9,
+    date: 7,
+    day: 5
+  });
+});
