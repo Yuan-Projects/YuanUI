@@ -1,6 +1,11 @@
 function Calendar(options) {
+  var now = new Date();
+  
   this.inputElement = options.inputElement;
+  this.headerTable = null;
   this.dateTableElement = null;
+  this.year = now.getFullYear();
+  this.month = now.getMonth() + 1;
   var that = this;
 
   insertToDOM();
@@ -21,6 +26,8 @@ function Calendar(options) {
     headerTableTd1.className = 'rangeIndicator';
     headerTableTd1.innerHTML = todayObject.year + '年' + todayObject.month + '月';
 
+    headerTableTd2.className = "uparrow";
+    headerTableTd3.className = "downarrow";
     headerTableTd2.innerHTML = '&uarr;';
     headerTableTd3.innerHTML = '&darr;';
 
@@ -56,6 +63,7 @@ function Calendar(options) {
     rootElement.appendChild(headerTable);
     rootElement.appendChild(dateTable);
 
+    that.headerTable = headerTable;
     that.dateTableElement = dateTable;
     return rootElement;
   }
@@ -65,17 +73,38 @@ function Calendar(options) {
     Calendar.utils.dom.insertAfter(rootElement, that.inputElement);
   }
 
-  function renderDatesInTable() {
-    var tds = that.dateTableElement.querySelectorAll('td');
-    var now = new Date();
-    var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(now.getFullYear(), now.getMonth() + 1);
-    monthInfo.forEach(function(currentValue, index, array) {
-      tds[index].innerHTML = currentValue.date;
-    });
-  }
-
-  renderDatesInTable();
+  this.renderDatesInTable(this.year, this.month);
+  this.addEventListeners(); 
 }
+
+Calendar.prototype.addEventListeners = function() {
+  var that = this;
+  this.headerTable.addEventListener("click", function(e) {
+    var target = e.target;
+    if (target.classList.contains('uparrow')) {
+      that.month--;
+      that.renderDatesInTable(that.year, that.month);
+      that.renderHeaderTableDate();
+    } else if (target.classList.contains('downarrow')) {
+      that.month++;
+      that.renderDatesInTable(that.year, that.month);
+      that.renderHeaderTableDate();
+    }
+  });
+};
+
+Calendar.prototype.renderDatesInTable = function(year, month) {
+  var tds = this.dateTableElement.querySelectorAll('td');
+  
+  var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(year, month);
+  monthInfo.forEach(function(currentValue, index, array) {
+    tds[index].innerHTML = currentValue.date;
+  });
+};
+
+Calendar.prototype.renderHeaderTableDate = function() {
+  this.headerTable.querySelector('.rangeIndicator').innerHTML = String(this.year) + "年" + String(this.month) + "月";
+};
 
 Calendar.utils = {
   dom: {
@@ -223,6 +252,8 @@ Calendar.utils = {
     }
   }
 };
+
+// Object.assign polyfill, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
 if (typeof Object.assign != 'function') {
   // Must be writable: true, enumerable: false, configurable: true
   Object.defineProperty(Object, "assign", {
