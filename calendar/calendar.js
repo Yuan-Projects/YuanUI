@@ -1,5 +1,7 @@
 function Calendar(options) {
   var now = new Date();
+  var rootElement = null;
+  var elementHandlers = [];
   
   this.inputElement = options.inputElement;
   this.headerTable = null;
@@ -8,11 +10,19 @@ function Calendar(options) {
   this.month = now.getMonth() + 1;
   var that = this;
 
+  createRootElement();
   insertToDOM();
+
+  this.getHandlers = function() {
+    return elementHandlers;
+  };
+  this.getRootElement = function() {
+    return rootElement;
+  };
 
   function createRootElement() {
     var tag = Calendar.utils.dom.tag;
-    var rootElement = tag('div', {
+    rootElement = tag('div', {
       className: 'yuanui-calendar'
     });
 
@@ -69,7 +79,6 @@ function Calendar(options) {
   }
 
   function insertToDOM() {
-    var rootElement = createRootElement();
     Calendar.utils.dom.insertAfter(rootElement, that.inputElement);
   }
 
@@ -79,7 +88,7 @@ function Calendar(options) {
 
 Calendar.prototype.addEventListeners = function() {
   var that = this;
-  this.headerTable.addEventListener("click", function(e) {
+  this.addEventListener(this.headerTable, "click", function(e) {
     var target = e.target;
     if (target.classList.contains('uparrow')) {
       that.month--;
@@ -92,6 +101,16 @@ Calendar.prototype.addEventListeners = function() {
       that.renderDatesInTable(that.year, that.month);
       that.renderHeaderTableDate();
     }
+  });
+};
+
+Calendar.prototype.addEventListener = function(el, type, listener) {
+  var handlers = this.getHandlers();
+  el.addEventListener(type, listener, false);
+  handlers.push({
+    "el": el,
+    "tp": type,
+    "cb": listener
   });
 };
 
@@ -123,8 +142,24 @@ Calendar.prototype.normalizeYearMonth = function() {
   this.month = date.getMonth() + 1;
 };
 
+Calendar.prototype.dispose = function() {
+  var handlers = this.getHandlers();
+  var len = handlers.length;
+  if (len === 0) return ;
+  for (var i = 0; i < len; i++ ) {
+    var obj = handlers[i];
+    obj["el"].removeEventListener(obj["tp"], obj["cb"], false);
+  }
+  handlers.length = 0;
+  Calendar.utils.dom.remove(this.getRootElement());
+};
+
 Calendar.utils = {
   dom: {
+    remove: function(element) {
+      element.parentNode.removeChild(element);
+      element = null;
+    },
     insertAfter: function(newElement, targetElement) {
       targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);
     },
