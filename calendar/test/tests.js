@@ -169,3 +169,21 @@ QUnit.test('Call this function with three parameters', function(assert) {
     day: 5
   });
 });
+
+QUnit.module("Calendar instance");
+QUnit.test('Create a new instance', function(assert) {
+  var options = {
+    inputElement: document.getElementById('myinput')
+  };
+  var instance = new Calendar(options);
+  assert.ok(instance);
+});
+
+QUnit.test('Check if the calendar DOM is created successfully or not', function(assert) {
+  var options = {
+    inputElement: document.getElementById('myinput')
+  };
+  var instance = new Calendar(options);
+  var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
+  assert.deepEqual(calendarDom.length, 1, "There is only one calendar root element.");
+});
