@@ -187,3 +187,27 @@ QUnit.test('Check if the calendar DOM is created successfully or not', function(
   var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
   assert.deepEqual(calendarDom.length, 1, "There is only one calendar root element.");
 });
+
+QUnit.test('The date value was populated in the input control after a date was clicked.', function(assert) {
+  var options = {
+    inputElement: document.getElementById('myinput'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  var dateTds = instance.dateTableElement.getElementsByTagName('td');
+  dateTds[0].click();
+  assert.deepEqual(options.inputElement.value, "2018-10-29", "The input value 2018-10-29");
+});
+
+QUnit.test('The date value was populated in the input control after a date was clicked #2', function(assert) {
+  var options = {
+    inputElement: document.getElementById('myinput'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  var dateTds = instance.dateTableElement.getElementsByTagName('td');
+  dateTds[41].click();
+  assert.deepEqual(options.inputElement.value, "2018-12-09", "The input value 2018-12-09");
+});

@@ -6,8 +6,8 @@ function Calendar(options) {
   this.inputElement = options.inputElement;
   this.headerTable = null;
   this.dateTableElement = null;
-  this.year = now.getFullYear();
-  this.month = now.getMonth() + 1;
+  this.year = options.year || now.getFullYear();
+  this.month = options.month || (now.getMonth() + 1);
   var that = this;
 
   createRootElement();
@@ -102,6 +102,15 @@ Calendar.prototype.addEventListeners = function() {
       that.renderHeaderTableDate();
     }
   });
+  
+  this.addEventListener(this.dateTableElement, "click", function(e) {
+    var target = e.target;
+    var targetDate = null;
+    if (target.tagName === "TD" && target.getAttribute('data-date')) {
+      targetDate = JSON.parse(target.getAttribute('data-date'));
+      that.inputElement.value = "" + targetDate.year + "-" + Calendar.utils.msc.padStartZero(targetDate.month) + "-" + Calendar.utils.msc.padStartZero(targetDate.date);
+    }
+  });
 };
 
 Calendar.prototype.addEventListener = function(el, type, listener) {
@@ -127,6 +136,7 @@ Calendar.prototype.renderDatesInTable = function(year, month) {
     } else if (currentValue.year === that.year && currentValue.month === that.month) {
       cls = "currentMonth";
     }
+    tds[index].setAttribute('data-date', JSON.stringify(currentValue));
     tds[index].className = cls;
     tds[index].innerHTML = currentValue.date;
   });
@@ -155,6 +165,16 @@ Calendar.prototype.dispose = function() {
 };
 
 Calendar.utils = {
+  msc: {
+    padStartZero: function(number) {
+      if (number > 9) return number;
+      if (String.prototype.padStart) {
+        return String.prototype.padStart.call(number, 2, '0');
+      } else {
+        return '0' + number;
+      }
+    }
+  },
   dom: {
     remove: function(element) {
       element.parentNode.removeChild(element);

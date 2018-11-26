@@ -12,6 +12,7 @@ TODO
 * Date span picker
 * Mutiple language support
 * Configurable first day of the week
+* Custom date format
 
 Supported Browsers:
 * Edge
