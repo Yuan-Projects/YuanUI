@@ -12,6 +12,7 @@ function Calendar(options) {
 
   createRootElement();
   insertToDOM();
+  setCalendarPosition();
 
   this.getHandlers = function() {
     return elementHandlers;
@@ -80,6 +81,11 @@ function Calendar(options) {
 
   function insertToDOM() {
     Calendar.utils.dom.insertAfter(rootElement, that.inputElement);
+  }
+  
+  function setCalendarPosition() {
+    var pos = Calendar.utils.dom.offset(options.inputElement);
+    rootElement.style.left = "" + pos.left + "px";
   }
 
   this.renderDatesInTable(this.year, this.month);
@@ -176,6 +182,13 @@ Calendar.utils = {
     }
   },
   dom: {
+    offset: function(element) {
+      var rect = element.getBoundingClientRect();
+      return {
+        top: rect.top + document.body.scrollTop,
+        left: rect.left + document.body.scrollLeft
+      };
+    },
     remove: function(element) {
       element.parentNode.removeChild(element);
       element = null;
