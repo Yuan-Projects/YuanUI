@@ -6,13 +6,10 @@ function Calendar(options) {
   this.inputElement = options.inputElement;
   this.headerTable = null;
   this.dateTableElement = null;
+  this.options = options;
   this.year = options.year || now.getFullYear();
   this.month = options.month || (now.getMonth() + 1);
   var that = this;
-
-  createRootElement();
-  insertToDOM();
-  setCalendarPosition();
 
   this.getHandlers = function() {
     return elementHandlers;
@@ -78,23 +75,22 @@ function Calendar(options) {
     that.dateTableElement = dateTable;
     return rootElement;
   }
-
-  function insertToDOM() {
-    Calendar.utils.dom.insertAfter(rootElement, that.inputElement);
-  }
   
-  function setCalendarPosition() {
-    var pos = Calendar.utils.dom.offset(options.inputElement);
-    rootElement.style.left = "" + pos.left + "px";
-  }
-
-  this.renderDatesInTable(this.year, this.month);
+  createRootElement();
   this.addEventListeners(); 
 }
 
 Calendar.prototype.addEventListeners = function() {
   var that = this;
-  this.addEventListener(this.headerTable, "click", function(e) {
+  var focusHandler = function(e) {
+    that.insertToDOM();
+    that.setCalendarPosition();
+    that.renderDatesInTable(that.year, that.month);
+  };
+  var blurHandler = function(e) {
+    that.removeRootElement();
+  };
+  var clickHandler = function(e) {
     var target = e.target;
     if (target.classList.contains('uparrow')) {
       that.month--;
@@ -107,7 +103,10 @@ Calendar.prototype.addEventListeners = function() {
       that.renderDatesInTable(that.year, that.month);
       that.renderHeaderTableDate();
     }
-  });
+  };
+  this.addEventListener(this.options.inputElement, "focus", focusHandler);
+  this.addEventListener(this.options.inputElement, "blur", blurHandler);
+  this.addEventListener(this.headerTable, "click", clickHandler);
   
   this.addEventListener(this.dateTableElement, "click", function(e) {
     var target = e.target;
@@ -117,6 +116,19 @@ Calendar.prototype.addEventListeners = function() {
       that.inputElement.value = "" + targetDate.year + "-" + Calendar.utils.msc.padStartZero(targetDate.month) + "-" + Calendar.utils.msc.padStartZero(targetDate.date);
     }
   });
+};
+
+Calendar.prototype.insertToDOM = function() {
+  Calendar.utils.dom.insertAfter(this.getRootElement(), this.inputElement);
+};
+
+Calendar.prototype.removeRootElement = function() {
+  Calendar.utils.dom.remove(this.getRootElement());
+};
+
+Calendar.prototype.setCalendarPosition = function() {
+  var pos = Calendar.utils.dom.offset(this.options.inputElement);
+  this.getRootElement().style.left = "" + pos.left + "px";
 };
 
 Calendar.prototype.addEventListener = function(el, type, listener) {
@@ -167,7 +179,7 @@ Calendar.prototype.dispose = function() {
     obj["el"].removeEventListener(obj["tp"], obj["cb"], false);
   }
   handlers.length = 0;
-  Calendar.utils.dom.remove(this.getRootElement());
+  Calendar.utils.dom.remove(this.getRootElement(), true);
 };
 
 Calendar.utils = {
@@ -189,9 +201,11 @@ Calendar.utils = {
         left: rect.left + document.body.scrollLeft
       };
     },
-    remove: function(element) {
+    remove: function(element, destroy) {
       element.parentNode.removeChild(element);
-      element = null;
+      if (destroy) {
+        element = null;
+      }
     },
     insertAfter: function(newElement, targetElement) {
       targetElement.parentNode.insertBefore(newElement, targetElement.nextSibling);

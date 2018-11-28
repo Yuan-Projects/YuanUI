@@ -179,35 +179,100 @@ QUnit.test('Create a new instance', function(assert) {
   assert.ok(instance);
 });
 
-QUnit.test('Check if the calendar DOM is created successfully or not', function(assert) {
+QUnit.test('The calendar DOM should not be created until the input is focused', function(assert) {
   var options = {
     inputElement: document.getElementById('myinput')
   };
   var instance = new Calendar(options);
   var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
-  assert.deepEqual(calendarDom.length, 1, "There is only one calendar root element.");
+  assert.deepEqual(calendarDom.length, 0, "There is no calendar root element found.");
+});
+
+QUnit.test('The calendar DOM should be created after the input was focused', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput')
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
+    assert.deepEqual(calendarDom.length, 1, "The calendar root element has been created.");
+    done();
+  }, 100);
+});
+
+QUnit.test('The calendar DOM should be removed after the input had lost focus', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput')
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    options.inputElement.blur();
+    setTimeout(function() {
+      var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
+      assert.deepEqual(calendarDom.length, 0, "The calendar root element has been removed.");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('The calendar DOM should be created again after the input had lost focus then had focus again', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput')
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    options.inputElement.blur();
+    setTimeout(function() {
+      options.inputElement.focus();
+      setTimeout(function() {
+        var calendarDom = document.getElementById('qunit-fixture').getElementsByClassName('yuanui-calendar');
+        assert.deepEqual(calendarDom.length, 1, "The calendar root element has been created again.");
+        done();
+      }, 100);
+    }, 100);
+  }, 100);
 });
 
 QUnit.test('The date value was populated in the input control after a date was clicked.', function(assert) {
+  var done = assert.async();
   var options = {
     inputElement: document.getElementById('myinput'),
     year: 2018,
     month: 11
   };
   var instance = new Calendar(options);
-  var dateTds = instance.dateTableElement.getElementsByTagName('td');
-  dateTds[0].click();
-  assert.deepEqual(options.inputElement.value, "2018-10-29", "The input value 2018-10-29");
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[0].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "2018-10-29", "The input value 2018-10-29");
+      done();
+    }, 100);
+  }, 100);
 });
 
 QUnit.test('The date value was populated in the input control after a date was clicked #2', function(assert) {
+  var done = assert.async();
   var options = {
     inputElement: document.getElementById('myinput'),
     year: 2018,
     month: 11
   };
   var instance = new Calendar(options);
-  var dateTds = instance.dateTableElement.getElementsByTagName('td');
-  dateTds[41].click();
-  assert.deepEqual(options.inputElement.value, "2018-12-09", "The input value 2018-12-09");
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "2018-12-09", "The input value 2018-12-09");
+      done();
+    }, 100);
+  }, 100);
 });
