@@ -276,3 +276,175 @@ QUnit.test('The date value was populated in the input control after a date was c
     }, 100);
   }, 100);
 });
+
+QUnit.module("Custom date format tests");
+QUnit.test('format character #0: defaults to Y-m-d', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "2018-12-09", "The input value is 2018-12-09");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "d": Day of the month, 2 digits with leading zeros -	01 to 31', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput2'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "09", "The input value is '09'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "j": Day of the month without leading zeros - 1 to 31', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput3'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "9", "The input value is '9'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "w": Numeric representation of the day of the week - 0 (for Sunday) through 6 (for Saturday)', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput4'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "0", "The input value is '0'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "m" Numeric representation of a month, with leading zeros - 01 through 12', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput5'),
+    year: 2018,
+    month: 8
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "09", "The input value is '09'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "n": Numeric representation of a month, without leading zeros - 1 through 12', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput6'),
+    year: 2018,
+    month: 8
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "9", "The input value is '9'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "Y": A full numeric representation of a year, 4 digits', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput7'),
+    year: 2018,
+    month: 8
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "2018", "The input value is '2018'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "y": A two digit representation of a year', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput8'),
+    year: 2018,
+    month: 8
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "18", "The input value is '18'");
+      done();
+    }, 100);
+  }, 100);
+});
+
+QUnit.test('format character "Y年m月d日"', function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput9'),
+    year: 2018,
+    month: 11
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    dateTds[41].click();
+    setTimeout(function() {
+      assert.deepEqual(options.inputElement.value, "2018年12月09日", "The input value is '2018年12月09日'");
+      done();
+    }, 100);
+  }, 100);
+});
