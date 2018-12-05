@@ -6,9 +6,25 @@ function Calendar(options) {
   this.inputElement = options.inputElement;
   this.headerTable = null;
   this.dateTableElement = null;
-  this.options = options;
+  this.options = Object.assign({}, {
+    locale: 'zh'
+  }, options);
   this.year = options.year || now.getFullYear();
   this.month = options.month || (now.getMonth() + 1);
+  
+  this.locales = {
+    zh: {
+      daysOfWeek: ['一', '二', '三', '四', '五', '六', '日'],
+      currentMonthText: "Y年m月"
+    },
+    en: {
+      daysOfWeek: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
+      currentMonthText: "F Y"
+    }
+  };
+  
+  this.currentLocale = this.locales[this.options.locale];
+  
   var that = this;
 
   this.getHandlers = function() {
@@ -32,7 +48,7 @@ function Calendar(options) {
 
     var todayObject = Calendar.utils.date.getToday();
     headerTableTd1.className = 'rangeIndicator';
-    headerTableTd1.innerHTML = todayObject.year + '年' + todayObject.month + '月';
+    headerTableTd1.innerHTML = Calendar.date(that.currentLocale.currentMonthText, Calendar.getUnixTimestamp({year: that.year, month: that.month, date: 1}));
 
     headerTableTd2.className = "uparrow";
     headerTableTd3.className = "downarrow";
@@ -52,7 +68,9 @@ function Calendar(options) {
 
     var dateTableTr, dateTableTd;
 
-    dateTableTheadTr.innerHTML = '<th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th><th>日</th>';
+    dateTableTheadTr.innerHTML = that.currentLocale.daysOfWeek.map(function(currentValue) {
+      return "<th>" + currentValue + "</th>";
+    }).join('');
     dateTable.appendChild(dateTableThead);
     dateTable.appendChild(dateTableTbody);
 
@@ -83,6 +101,7 @@ function Calendar(options) {
 Calendar.prototype.addEventListeners = function() {
   var that = this;
   var focusHandler = function(e) {
+    console.log('focus');
     that.insertToDOM();
     that.setCalendarPosition();
     that.renderDatesInTable(that.year, that.month);
@@ -91,7 +110,7 @@ Calendar.prototype.addEventListeners = function() {
     that.removeRootElement();
   };
   var clickHandler = function(e) {
-    var target = e.target;
+    var target = e.target || e.srcElement || document;
     if (target.classList.contains('uparrow')) {
       that.month--;
       that.normalizeYearMonth();
@@ -109,7 +128,7 @@ Calendar.prototype.addEventListeners = function() {
   this.addEventListener(this.headerTable, "click", clickHandler);
   
   this.addEventListener(this.dateTableElement, "click", function(e) {
-    var target = e.target;
+    var target = e.target || e.srcElement || document;
     var targetDate = null;
     if (target.tagName === "TD" && target.getAttribute('data-date')) {
       var format = that.options.inputElement.getAttribute('data-format') || 'Y-m-d';
@@ -134,7 +153,7 @@ Calendar.prototype.setCalendarPosition = function() {
 
 Calendar.prototype.addEventListener = function(el, type, listener) {
   var handlers = this.getHandlers();
-  el.addEventListener(type, listener, false);
+  Calendar.addEvent(el, type, listener);
   handlers.push({
     "el": el,
     "tp": type,
@@ -177,10 +196,26 @@ Calendar.prototype.dispose = function() {
   if (len === 0) return ;
   for (var i = 0; i < len; i++ ) {
     var obj = handlers[i];
-    obj["el"].removeEventListener(obj["tp"], obj["cb"], false);
+    Calendar.removeEvent(obj["el"], obj["tp"], obj["cb"]);
   }
   handlers.length = 0;
   Calendar.utils.dom.remove(this.getRootElement(), true);
+};
+
+Calendar.addEvent = function(dom, type, fn) {
+  if (document.addEventListener) {
+    dom.addEventListener(type, fn, false);
+  } else if (document.attachEvent) {
+    dom.attachEvent('on' + type, fn);
+  }
+};
+
+Calendar.removeEvent = function(dom, type, fn) {
+  if (document.removeEventListener) {
+    dom.removeEventListener(type, fn, false);
+  } else if (document.detachEvent) {
+    dom.detachEvent('on' + type, fn);
+  }
 };
 
 Calendar.getUnixTimestamp = function(dateObj) {

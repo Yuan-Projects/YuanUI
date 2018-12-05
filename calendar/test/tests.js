@@ -448,3 +448,40 @@ QUnit.test('format character "Y年m月d日"', function(assert) {
     }, 100);
   }, 100);
 });
+
+QUnit.module("i18n tests");
+QUnit.test("Show the calendar in Chinese", function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput9'),
+    year: 2018,
+    month: 11,
+    locale: 'zh'
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var ths = instance.dateTableElement.getElementsByTagName('th');
+    assert.deepEqual(ths[0].innerHTML, "一");
+    assert.deepEqual(instance.headerTable.getElementsByClassName('rangeIndicator')[0].innerHTML, '2018年11月', "Current month");
+    done();
+  }, 100);
+});
+
+QUnit.test("Show the calendar in English", function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput9'),
+    year: 2018,
+    month: 11,
+    locale: 'en'
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    var ths = instance.dateTableElement.getElementsByTagName('th');
+    assert.deepEqual(ths[0].innerHTML, "Mo", "The first day of the week");
+    assert.deepEqual(instance.headerTable.getElementsByClassName('rangeIndicator')[0].innerHTML, 'November 2018', "Current month");
+    done();
+  }, 100);
+});
