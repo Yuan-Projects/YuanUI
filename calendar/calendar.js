@@ -127,6 +127,16 @@ Calendar.prototype.addEventListeners = function() {
   this.addEventListener(this.options.inputElement, "blur", blurHandler);
   this.addEventListener(this.headerTable, "click", clickHandler);
   
+  this.addEventListener(this.getRootElement(), "mousedown", function(e) {
+    var evt = e || window.event;
+    var target = e.target || e.srcElement || document;
+    if (evt.preventDefault) {
+      evt.preventDefault();
+    } else {
+      target.unselectable = true; // important!
+    }
+  });
+  
   this.addEventListener(this.dateTableElement, "click", function(e) {
     var target = e.target || e.srcElement || document;
     var targetDate = null;
@@ -134,6 +144,7 @@ Calendar.prototype.addEventListeners = function() {
       var format = that.options.inputElement.getAttribute('data-format') || 'Y-m-d';
       targetDate = JSON.parse(target.getAttribute('data-date'));
       that.inputElement.value = Calendar.date(format, Calendar.getUnixTimestamp(targetDate));
+      that.inputElement.blur();
     }
   });
 };
