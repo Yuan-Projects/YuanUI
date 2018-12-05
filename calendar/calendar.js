@@ -6,7 +6,7 @@ function Calendar(options) {
   this.inputElement = options.inputElement;
   this.headerTable = null;
   this.dateTableElement = null;
-  this.options = Object.assign({}, {
+  this.options = Calendar.extend({}, {
     locale: 'zh'
   }, options);
   this.year = options.year || now.getFullYear();
@@ -539,7 +539,7 @@ Calendar.utils = {
       var thisMonthInfo = Calendar.utils.date.monthInfo(year, month);
       while(count--) {
         var m = count % 7;
-        result.push(Object.assign({}, thisMonthInfo.lastDay, {
+        result.push(Calendar.extend({}, thisMonthInfo.lastDay, {
           date: thisMonthInfo.lastDay.date - count,
           day: (thisMonthInfo.lastDay.day + 7 - m)%7
         }));
@@ -634,33 +634,58 @@ Calendar.utils = {
   }
 };
 
-// Object.assign polyfill, see https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-if (typeof Object.assign != 'function') {
-  // Must be writable: true, enumerable: false, configurable: true
-  Object.defineProperty(Object, "assign", {
-    value: function assign(target, varArgs) { // .length of function is 2
-      'use strict';
-      if (target == null) { // TypeError if undefined or null
-        throw new TypeError('Cannot convert undefined or null to object');
-      }
 
-      var to = Object(target);
+/**
+ * Merge multiple objects dynamically with modifying either arguments.
+ * Inspired by http://stackoverflow.com/questions/171251#16178864
+ * @example extend(obj1, obj2, ....);
+ * @return {object} The merged object.
+ */
+Calendar.extend = function extend() {
+  var result = {}, 
+      src, 
+      prop, 
+      args = getArgumentsArray(arguments),
+      hasOwnProperty = Object.prototype.hasOwnProperty,
+      toString = Object.prototype.toString;
 
-      for (var index = 1; index < arguments.length; index++) {
-        var nextSource = arguments[index];
+  if (typeof Object.assign === "function") {
+    return Object.assign.apply(null, args);
+  }
 
-        if (nextSource != null) { // Skip over if undefined or null
-          for (var nextKey in nextSource) {
-            // Avoid bugs when hasOwnProperty is shadowed
-            if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-              to[nextKey] = nextSource[nextKey];
-            }
+  /**
+   *
+   * Convert function arguments to an array.
+   * The arguments object can be converted to a real Array by using:
+   * var args = Array.prototype.slice.call(arguments);
+   * But it prevents optimizations in JavaScript engines(V8 for example).
+   * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+   * @param {object} args The Array-like object.
+   * @return {array}
+   */
+  function getArgumentsArray(args) {
+    var result = [],
+        len = args.length,
+        i;
+    for (i = 0; i < len; i++) {
+      result.push(args[i]);
+    }
+    return result;
+  }
+      
+  while (args.length > 0) {
+    src = args.shift();
+    if (toString.call(src) === "[object Object]") {
+      for (prop in src) {
+        if (hasOwnProperty.call(src, prop)) {
+          if (toString.call(src[prop]) == '[object Object]') {
+            result[prop] = extend(result[prop] || {}, src[prop]);
+          } else {
+            result[prop] = src[prop];
           }
         }
       }
-      return to;
-    },
-    writable: true,
-    configurable: true
-  });
-}
+    }
+  }
+  return result;
+};
