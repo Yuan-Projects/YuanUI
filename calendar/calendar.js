@@ -68,9 +68,11 @@ function Calendar(options) {
 
     var dateTableTr, dateTableTd;
 
-    dateTableTheadTr.innerHTML = Calendar.map(that.currentLocale.daysOfWeek, function(currentValue) {
-      return "<th>" + currentValue + "</th>";
-    }).join('');
+    Calendar.each(that.currentLocale.daysOfWeek, function(currentValue) {
+      var newEL = document.createElement('th');
+      newEL.innerHTML = currentValue;
+      dateTableTheadTr.appendChild(newEL);
+    });
     dateTable.appendChild(dateTableThead);
     dateTable.appendChild(dateTableTbody);
 
@@ -661,7 +663,11 @@ Calendar.getArgumentsArray = function(args) {
  * @return {boolean} True if this variable is a DOM element, false otherwise.
  */
 Calendar.isElement = function(element) {
-  return element instanceof Element || element instanceof HTMLDocument;
+  try {
+    return element instanceof Element || element instanceof HTMLDocument;
+  } catch (e) {
+    return false;
+  }
 };
 
 /**
@@ -702,6 +708,7 @@ Calendar.each = function(obj, callback) {
 
 /**
  * Creates a new array with the results of calling a provided function on every element in the calling array.
+ * Not in use.
  * 
  * @param {Array} array The array to translate.
  * @param {Function} callback The function to process each items against.
