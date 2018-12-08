@@ -113,12 +113,12 @@ Calendar.prototype.addEventListeners = function() {
   };
   var clickHandler = function(e) {
     var target = e.target || e.srcElement || document;
-    if (target.classList.contains('uparrow')) {
+    if (Calendar.hasClass(target, 'uparrow')) {
       that.month--;
       that.normalizeYearMonth();
       that.renderDatesInTable(that.year, that.month);
       that.renderHeaderTableDate();
-    } else if (target.classList.contains('downarrow')) {
+    } else if (Calendar.hasClass(target, 'downarrow')) {
       that.month++;
       that.normalizeYearMonth();
       that.renderDatesInTable(that.year, that.month);
@@ -234,6 +234,14 @@ Calendar.removeEvent = function(dom, type, fn) {
 Calendar.getUnixTimestamp = function(dateObj) {
   var date = dateObj ? new Date(dateObj.year, dateObj.month - 1, dateObj.date) : new Date();
   return Math.floor(date.valueOf() / 1000);  
+};
+
+Calendar.hasClass = function(el, className) {
+  if (el.classList) {
+    return el.classList.contains(className);
+  } else {
+    return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className);
+  }
 };
 
 // From http://locutus.io/php/datetime/date/
