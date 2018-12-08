@@ -68,7 +68,7 @@ function Calendar(options) {
 
     var dateTableTr, dateTableTd;
 
-    dateTableTheadTr.innerHTML = that.currentLocale.daysOfWeek.map(function(currentValue) {
+    dateTableTheadTr.innerHTML = Calendar.map(that.currentLocale.daysOfWeek, function(currentValue) {
       return "<th>" + currentValue + "</th>";
     }).join('');
     dateTable.appendChild(dateTableThead);
@@ -178,7 +178,7 @@ Calendar.prototype.renderDatesInTable = function(year, month) {
   var now = new Date();
   
   var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(year, month);
-  monthInfo.forEach(function(currentValue, index, array) {
+  Calendar.each(monthInfo, function(currentValue, index, array) {
     var cls = "";
     if (currentValue.year === now.getFullYear() && currentValue.month === (now.getMonth() + 1) && currentValue.date === now.getDate()) {
       cls = "currentDate";
@@ -634,6 +634,87 @@ Calendar.utils = {
   }
 };
 
+/**
+ *
+ * Convert function arguments to an array.
+ * The arguments object can be converted to a real Array by using:
+ * var args = Array.prototype.slice.call(arguments);
+ * But it prevents optimizations in JavaScript engines(V8 for example).
+ * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
+ * @param {Object} args The Array-like object.
+ * @return {Array}
+ */
+Calendar.getArgumentsArray = function(args) {
+  var result = [],
+    len = args.length,
+    i;
+  for (i = 0; i < len; i++) {
+    result.push(args[i]);
+  }
+  return result;
+};
+
+/**
+ *
+ * Check if a Javascript variable is a DOM element.
+ * @param {*} element The variable to be tested.
+ * @return {boolean} True if this variable is a DOM element, false otherwise.
+ */
+Calendar.isElement = function(element) {
+  return element instanceof Element || element instanceof HTMLDocument;
+};
+
+/**
+ * Determine whether the argument is an array.
+ * @param {*} obj The Object to test.
+ * @return {Boolean} True if it's an array, false otherwise.
+ */
+Calendar.isArray = function(obj) {
+  if (Array.isArray) {
+    return Array.isArray(obj);
+  }
+  return Object.prototype.toString.call(obj) === '[object Array]';
+};
+
+/**
+ * Executes a provided function once for each array element.
+ * @param {Array|Object} obj The array to iterate over.
+ * @param {Function} callback The function will be executed on every item.
+ * @return {undefined}
+ */
+Calendar.each = function(obj, callback) {
+  var length, i = 0;
+  if(Calendar.isArray(obj)) {
+    length = obj.length;
+    for ( ; i < length; i++ ) {
+      if ( callback.call( obj[ i ], obj[ i ], i ) === false ) {
+        break;
+      }
+    }
+  } else {
+    for (i in obj) {
+      if ( callback.call( obj[ i ], obj[ i ], i ) === false ) {
+        break;
+      }
+    }
+  }
+};
+
+/**
+ * Creates a new array with the results of calling a provided function on every element in the calling array.
+ * 
+ * @param {Array} array The array to translate.
+ * @param {Function} callback The function to process each items against.
+ * @return {Array} A new array.
+ */
+Calendar.map = function(array, callback) {
+  var len = array.length;
+  var result = new Array(len);
+  for (var i = 0; i < len; i++) {
+    result[i] = callback.call(array, array[i], i);
+  }
+  return result;
+};
 
 /**
  * Merge multiple objects dynamically with modifying either arguments.
@@ -645,7 +726,7 @@ Calendar.extend = function extend() {
   var result = {}, 
       src, 
       prop, 
-      args = getArgumentsArray(arguments),
+      args = Calendar.getArgumentsArray(arguments),
       hasOwnProperty = Object.prototype.hasOwnProperty,
       toString = Object.prototype.toString;
 
@@ -653,32 +734,12 @@ Calendar.extend = function extend() {
     return Object.assign.apply(null, args);
   }
 
-  /**
-   *
-   * Convert function arguments to an array.
-   * The arguments object can be converted to a real Array by using:
-   * var args = Array.prototype.slice.call(arguments);
-   * But it prevents optimizations in JavaScript engines(V8 for example).
-   * See: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/arguments
-   * @param {object} args The Array-like object.
-   * @return {array}
-   */
-  function getArgumentsArray(args) {
-    var result = [],
-        len = args.length,
-        i;
-    for (i = 0; i < len; i++) {
-      result.push(args[i]);
-    }
-    return result;
-  }
-      
   while (args.length > 0) {
     src = args.shift();
     if (toString.call(src) === "[object Object]") {
       for (prop in src) {
         if (hasOwnProperty.call(src, prop)) {
-          if (toString.call(src[prop]) == '[object Object]') {
+          if (!Calendar.isElement(src[prop]) && toString.call(src[prop]) === '[object Object]') {
             result[prop] = extend(result[prop] || {}, src[prop]);
           } else {
             result[prop] = src[prop];
