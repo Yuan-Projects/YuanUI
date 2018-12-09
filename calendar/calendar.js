@@ -244,6 +244,25 @@ Calendar.hasClass = function(el, className) {
   }
 };
 
+// TODO
+Calendar.parseDate = function(input, format) {
+  format = format || 'Y-m-d'; // somedefault format
+  var exp = {
+    Y: '([0-9]{4})',
+    m: '([0-9]{2})',
+    d: '([0-9]{2})'
+  };
+  var fmt = {}, i = 0;
+  var str = format.replace(/Y|m|d/g, function(matched) {
+    // extract date-part indexes from the format
+    fmt[matched] = i++;
+    // generate regexp string
+    return exp[matched];
+  });
+  var parts = new RegExp('^' + str + '$').exec(input);
+  return new Date(parts[fmt['Y'] + 1], parts[fmt['m'] + 1] - 1, parts[fmt['d'] + 1]);
+};
+
 /**
  * Format a local time/date
  * @see http://locutus.io/php/datetime/date/
