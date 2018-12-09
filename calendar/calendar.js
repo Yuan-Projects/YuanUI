@@ -244,7 +244,13 @@ Calendar.hasClass = function(el, className) {
   }
 };
 
-// From http://locutus.io/php/datetime/date/
+/**
+ * Format a local time/date
+ * @see http://locutus.io/php/datetime/date/
+ * @param {string} format The format of the outputted date string.
+ * @param {number} timestamp The optional timestamp parameter is an integer Unix timestamp that defaults to the current local time.
+ * @return {string} Returns a formatted date string.
+ */
 Calendar.date = function(format, timestamp) {
   var jsdate, f;
   // Keep this here (works, but for code commented-out below for file size reasons)
