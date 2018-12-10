@@ -513,3 +513,22 @@ QUnit.test("Show the calendar in English", function(assert) {
     done();
   }, 100);
 });
+
+QUnit.module("default values");
+QUnit.test("#myinput10 defaults to 1989-06-04", function(assert) {
+  var done = assert.async();
+  var options = {
+    inputElement: document.getElementById('myinput10')
+  };
+  var instance = new Calendar(options);
+  options.inputElement.focus();
+  setTimeout(function() {
+    assert.deepEqual(instance.headerTable.getElementsByClassName('rangeIndicator')[0].innerHTML, '1989年6月');
+    var dateTds = instance.dateTableElement.getElementsByTagName('td');
+    var firstTd = dateTds[0], firstDay = JSON.parse(firstTd.getAttribute('data-date'));
+    assert.deepEqual(firstDay.year, 1989);
+    assert.deepEqual(firstDay.month, 5);
+    assert.deepEqual(firstDay.date, 29);
+    done();
+  }, 100);
+});
