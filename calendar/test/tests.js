@@ -1,3 +1,31 @@
+QUnit.module("Calendar.parseDate");
+function testParseDate(description, str, format, year, month, day) {
+  var parseDate = Calendar.parseDate;
+  var date = parseDate(str, format);
+  QUnit.test(description, function(assert) {
+    assert.deepEqual(date.getFullYear(), year);
+    assert.deepEqual(date.getMonth() + 1, month);
+    assert.deepEqual(date.getDate(), day);
+  });
+}
+
+testParseDate("2018-12-05 Y-m-d", "2018-12-05", 'Y-m-d', 2018, 12, 5);
+testParseDate("2018-12-05 Y-d-m", "2018-12-05", 'Y-d-m', 2018, 5, 12);
+testParseDate("2018-12-5 Y-m-j", "2018-12-5", 'Y-m-j', 2018, 12, 5);
+
+QUnit.test("An exception should be thrown if the date string not match with the format", function(assert) {
+  var parseDate = Calendar.parseDate;
+  var str = "1989-06-04", format = "Y-n-d";
+  
+  assert.throws(function() {
+    parseDate(str, format);
+  },
+  function(err) {
+    return err.toString() === "Date string does not match format expected";
+  },
+  "An exception should be thrown.");
+});
+
 QUnit.module("Calendar.utils.date.getCalendarDaysInMonth");
 QUnit.test('November 2018', function(assert){
   var days = Calendar.utils.date.getCalendarDaysInMonth(2018, 11);

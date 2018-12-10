@@ -244,23 +244,32 @@ Calendar.hasClass = function(el, className) {
   }
 };
 
-// TODO
+/**
+ * Parse a date string to a JavaScript date object.
+ * @param {string} input
+ * @param {string} format
+ * @return {Date}
+ */
 Calendar.parseDate = function(input, format) {
   format = format || 'Y-m-d'; // somedefault format
   var exp = {
     Y: '([0-9]{4})',
     m: '([0-9]{2})',
-    d: '([0-9]{2})'
+    n: '([0-9]{1,2})',
+    d: '([0-9]{2})',
+    j: '([0-9]{1,2})'
   };
   var fmt = {}, i = 0;
-  var str = format.replace(/Y|m|d/g, function(matched) {
+  var str = format.replace(/Y|m|n|d|j/g, function(matched) {
     // extract date-part indexes from the format
     fmt[matched] = i++;
     // generate regexp string
     return exp[matched];
   });
   var parts = new RegExp('^' + str + '$').exec(input);
-  return new Date(parts[fmt['Y'] + 1], parts[fmt['m'] + 1] - 1, parts[fmt['d'] + 1]);
+  if (!parts) throw "Date string does not match format expected";
+  var parts2 = parts.slice(1);
+  return new Date(parts2[fmt['Y']], parts2[fmt['n'] || fmt['m']] - 1, parts2[fmt['j'] || fmt['d']]);
 };
 
 /**
