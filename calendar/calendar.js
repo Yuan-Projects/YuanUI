@@ -15,7 +15,7 @@ function Calendar(options) {
   this.locales = {
     zh: {
       daysOfWeek: ['一', '二', '三', '四', '五', '六', '日'],
-      currentMonthText: "Y年m月"
+      currentMonthText: "Y年n月"
     },
     en: {
       daysOfWeek: ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'],
