@@ -103,7 +103,6 @@ function Calendar(options) {
 Calendar.prototype.addEventListeners = function() {
   var that = this;
   var focusHandler = function(e) {
-    console.log('focus');
     that.insertToDOM();
     that.setCalendarPosition();
     that.renderDatesInTable(that.year, that.month);
