@@ -15,7 +15,7 @@ testParseDate("2018-12-5 Y-m-j", "2018-12-5", 'Y-m-j', 2018, 12, 5);
 
 QUnit.test("An exception should be thrown if the date string not match with the format", function(assert) {
   var parseDate = Calendar.parseDate;
-  var str = "1989-06-04", format = "Y-n-d";
+  var str = "1989-06-04", format = "Y-n-x";
   
   assert.throws(function() {
     parseDate(str, format);
