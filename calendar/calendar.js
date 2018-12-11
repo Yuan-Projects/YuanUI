@@ -9,8 +9,16 @@ function Calendar(options) {
   this.options = Calendar.extend({}, {
     locale: 'zh'
   }, options);
-  this.year = options.year || now.getFullYear();
-  this.month = options.month || (now.getMonth() + 1);
+  
+  // User checked date, defaults to today.
+  var checkedDate = this.getCheckedDate();
+  this.checkedYear = checkedDate && checkedDate.year || now.getFullYear();
+  this.checkedMonth = checkedDate && checkedDate.month || now.getMonth() + 1;
+  this.checkedDay = checkedDate && checkedDate.date || now.getDate();
+  
+  // Current year and month on the panel
+  this.year = checkedDate && checkedDate.year || options.year || now.getFullYear();
+  this.month = checkedDate && checkedDate.month || options.month || (now.getMonth() + 1);
   
   this.locales = {
     zh: {
@@ -99,29 +107,85 @@ function Calendar(options) {
   createRootElement();
   this.addEventListeners(); 
 }
+// TODO
+// Returns dates according to 
+// 1. Input has a value or not
+// 2. options specified when new instance created
+// 3. Current month of today
+Calendar.prototype.getDisplayedYearMonth = function() {
+  var now = new Date();
+  var result = {
+    year: now.getFullYear(),
+    month: now.getMonth() + 1
+  };
+  var checkedDate = this.getCheckedDate();
+  if (checkedDate) {
+    result.year = checkedDate.year;
+    result.month = checkedDate.month;
+  } else if (this.options.year && this.options.month) {
+    result.year = this.options.year;
+    result.month = this.options.month;
+  }
+  return result;
+};
+
+Calendar.prototype.getRealtimeYearMonth = function() {
+  return {
+    year: this.year,
+    month: this.month
+  };
+};
+
+Calendar.prototype.setCheckedDate = function(dateObj) {
+  this.checkedYear = dateObj.year;
+  this.checkedMonth = dateObj.month;
+  this.checkedDay = dateObj.date;
+};
+
+Calendar.prototype.getCheckedDate = function() {
+  var input = this.options.inputElement,
+    value = input.value,
+    format = input.getAttribute('data-format');
+  if (!value) return null;
+  var date = Calendar.parseDate(value, format);
+  return {
+    year: date.getFullYear(),
+    month: date.getMonth() + 1,
+    date: date.getDate()
+  };
+};
 
 Calendar.prototype.addEventListeners = function() {
   var that = this;
   var focusHandler = function(e) {
     that.insertToDOM();
     that.setCalendarPosition();
-    that.renderDatesInTable(that.year, that.month);
+    
+    var displayedYM = that.getDisplayedYearMonth();
+    that.year = displayedYM.year;
+    that.month = displayedYM.month;
+    
+    that.renderHeaderTableDate(displayedYM.year, displayedYM.month);
+    that.renderDatesInTable(displayedYM.year, displayedYM.month);
   };
   var blurHandler = function(e) {
     that.removeRootElement();
   };
   var clickHandler = function(e) {
     var target = e.target || e.srcElement || document;
+    var displayedYM;
     if (Calendar.hasClass(target, 'uparrow')) {
       that.month--;
       that.normalizeYearMonth();
-      that.renderDatesInTable(that.year, that.month);
-      that.renderHeaderTableDate();
+      displayedYM = that.getRealtimeYearMonth();
+      that.renderHeaderTableDate(displayedYM.year, displayedYM.month);
+      that.renderDatesInTable(displayedYM.year, displayedYM.month);
     } else if (Calendar.hasClass(target, 'downarrow')) {
       that.month++;
       that.normalizeYearMonth();
-      that.renderDatesInTable(that.year, that.month);
-      that.renderHeaderTableDate();
+      displayedYM = that.getRealtimeYearMonth();
+      that.renderHeaderTableDate(displayedYM.year, displayedYM.month);
+      that.renderDatesInTable(displayedYM.year, displayedYM.month);
     }
   };
   this.addEventListener(this.options.inputElement, "focus", focusHandler);
@@ -144,6 +208,7 @@ Calendar.prototype.addEventListeners = function() {
     if (target.tagName === "TD" && target.getAttribute('data-date')) {
       var format = that.options.inputElement.getAttribute('data-format') || 'Y-m-d';
       targetDate = JSON.parse(target.getAttribute('data-date'));
+      that.setCheckedDate(targetDate);
       that.inputElement.value = Calendar.date(format, Calendar.getUnixTimestamp(targetDate));
       that.inputElement.blur();
     }
@@ -181,9 +246,9 @@ Calendar.prototype.renderDatesInTable = function(year, month) {
   var monthInfo = Calendar.utils.date.getCalendarDaysInMonth(year, month);
   Calendar.each(monthInfo, function(currentValue, index, array) {
     var cls = "";
-    if (currentValue.year === now.getFullYear() && currentValue.month === (now.getMonth() + 1) && currentValue.date === now.getDate()) {
+    if (currentValue.year === that.checkedYear && currentValue.month === that.checkedMonth && currentValue.date === that.checkedDay && currentValue.month === month) {
       cls = "currentDate";
-    } else if (currentValue.year === that.year && currentValue.month === that.month) {
+    } else if (currentValue.year === year && currentValue.month === month) {
       cls = "currentMonth";
     }
     tds[index].setAttribute('data-date', JSON.stringify(currentValue));
@@ -192,8 +257,10 @@ Calendar.prototype.renderDatesInTable = function(year, month) {
   });
 };
 
-Calendar.prototype.renderHeaderTableDate = function() {
-  this.headerTable.querySelector('.rangeIndicator').innerHTML = String(this.year) + "年" + String(this.month) + "月";
+Calendar.prototype.renderHeaderTableDate = function(year, month) {
+  year = year || this.year;
+  month = month || this.month;
+  this.headerTable.querySelector('.rangeIndicator').innerHTML = Calendar.date(this.currentLocale.currentMonthText, Calendar.getUnixTimestamp({year: year, month: month, date: 1}));
 };
 
 Calendar.prototype.normalizeYearMonth = function() {
