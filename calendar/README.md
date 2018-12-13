@@ -1,5 +1,7 @@
 # Calendar
 
+Demo: https://yuan-projects.github.io/YuanUI/calendar/demo/
+
 Features:
 * Previous/Next month
 * Highlight days of current month
