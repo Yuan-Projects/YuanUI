@@ -18,6 +18,6 @@ TODO
 
 Supported Browsers:
 * Edge
-* Internet Explorer 10+
+* Internet Explorer 8+
 * Chrome
 * Firefox
