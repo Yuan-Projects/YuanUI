@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Calendar</title>
+    <link rel="stylesheet" type="text/css" href="../calendar.css" />
+    <style>
+      textarea.democode {
+        min-width: 550px;
+        min-height: 180px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Simple usage</h2>
+    <p>Chinese: <input type="text" name="date" id="myinput" />  English <input type="text" name="date2" id="myinput2" /></p>
+    <p><button class="toggle">Show/Hide Code</button></p>
+    <textarea class="democode">
+var options = {
+  inputElement: document.getElementById('myinput'),
+};
+var mycalendar = new Calendar(options);
+
+var options2 = {
+  inputElement: document.getElementById('myinput2'),
+  locale: 'en'
+};
+var mycalendar2 = new Calendar(options2);    
+    </textarea>
+    
+    <h2>Custom date format</h2>
+    <p>Chinese: <input type="text" name="date" id="myinput3" data-format="Y年m月d日" placeholder="Y年m月d日" />  English <input type="text" name="date" id="myinput4" data-format="Y-m-d" placeholder="Y-m-d" /> <input type="text" name="date" id="myinput5" data-format="Ymd" placeholder="Ymd" /></p>
+    <p><button class="toggle">Show/Hide HTML Code</button></p>
+    <textarea class="democode">
+<input type="text" name="date" id="myinput3" data-format="Y年m月d日" placeholder="Y年m月d日" />
+<input type="text" name="date" id="myinput4" data-format="Y-m-d" placeholder="Y-m-d" />
+<input type="text" name="date5" id="myinput5" data-format="Ymd" placeholder="Ymd" />
+    </textarea>
+    <p><button class="toggle">Show/Hide JavaScript Code</button></p>
+    <textarea class="democode">
+var options3 = {
+  inputElement: document.getElementById('myinput3'),
+};
+var mycalendar3 = new Calendar(options3);
+
+var options4 = {
+  inputElement: document.getElementById('myinput4'),
+  locale: 'en'
+};
+var mycalendar4 = new Calendar(options4);   
+
+var options5 = {
+  inputElement: document.getElementById('myinput5'),
+  locale: 'en'
+};
+var mycalendar5 = new Calendar(options5);    
+    </textarea>
+    
+    <h2>Default date format</h2>
+    <p>Chinese: <input type="text" name="date" id="myinput6" data-format="Y年m月d日" value="1989年06月04日" />  English <input type="text" name="date" id="myinput7" data-format="Y-m-d" value="1989-06-04" /></p>
+    <p><button class="toggle">Show/Hide HTML Code</button></p>
+    <textarea class="democode">
+<input type="text" name="date" id="myinput6" data-format="Y年m月d日" value="1989年06月04日" />
+<input type="text" name="date" id="myinput7" data-format="Y-m-d" value="1989-06-04" />
+    </textarea>
+    <p><button class="toggle">Show/Hide JavaScript Code</button></p>
+    <textarea class="democode">
+var options6 = {
+  inputElement: document.getElementById('myinput6'),
+  locale: 'zh'
+};
+var mycalendar6 = new Calendar(options6);
+
+var options7 = {
+  inputElement: document.getElementById('myinput7'),
+  locale: 'en'
+};
+var mycalendar7 = new Calendar(options7);
+    </textarea>
+    
+    <script src="../calendar.js"></script>
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+window.onload = function() {
+  var options = {
+    inputElement: document.getElementById('myinput'),
+  };
+  var mycalendar = new Calendar(options);
+  
+  var options2 = {
+    inputElement: document.getElementById('myinput2'),
+    locale: 'en'
+  };
+  var mycalendar2 = new Calendar(options2);
+  
+  var options3 = {
+    inputElement: document.getElementById('myinput3'),
+  };
+  var mycalendar3 = new Calendar(options3);
+
+  var options4 = {
+    inputElement: document.getElementById('myinput4'),
+    locale: 'en'
+  };
+  var mycalendar4 = new Calendar(options4); 
+  
+  var options5 = {
+    inputElement: document.getElementById('myinput5'),
+    locale: 'en'
+  };
+  var mycalendar5 = new Calendar(options5);
+  
+  var options6 = {
+    inputElement: document.getElementById('myinput6'),
+    locale: 'zh'
+  };
+  var mycalendar6 = new Calendar(options6);
+
+  var options7 = {
+    inputElement: document.getElementById('myinput7'),
+    locale: 'en'
+  };
+  var mycalendar7 = new Calendar(options7);
+
+  // Demo
+  $('button.toggle').on('click', function() {
+    $(this).parent().next().toggle();
+    return false;
+  });
+}
+    </script>
+  </body>
+</html>
