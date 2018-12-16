@@ -36,3 +36,13 @@ $(function() {
   });
 });
 ```
+
+## Parameters
+| Parameter        | Type           | Default  |  Description |
+| ------------- |:-------------:| -----:| -----:|
+| width      | number | 520 | Dialog width in px. |
+| title      | string      |   'New Dialog' | Dialog title. |
+| resizable | boolean      |    false | Is this dialog resizable |
+| buttons | null or aray | null | Buttons at the bottom of the dialog. |
+| customCls | string | '' | Custom css class to be attached on the dialog. |
+| onaftershow | function | function(){} | The callback function after dialog displayed. |
