@@ -1,0 +1,45 @@
+nav {
+  display: block;
+}
+.nav {
+  /* Removes user agent list styles */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav li {
+  /* Makes list items appear side by side rather than stacked */
+  display: inline-block;
+}
+
+.nav li a {
+  /* !important: It makes the <ul> tag height equals to the <a> tag height. */
+  display: inline-block;
+
+  /* The following rules are optional and could be changed. */
+  /* Provides a buttonlike appearance for the navigational links */
+  background-color: #13a4a4;
+  padding: 5px;
+  border-radius: 2px;
+  color: white;
+
+  text-decoration: none;
+}
+
+.nav li a.featured {
+  background-color: orange;
+}
+
+/* Link orders */
+.nav li a:visited {
+  color: purple;
+}
+
+.nav li a:hover {
+  text-decoration: underline;
+}
+
+.nav li a:active {
+  color: red;
+}
