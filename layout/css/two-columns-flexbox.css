@@ -1,0 +1,36 @@
+header, main, aside {
+  display: block;
+}
+
+header {
+  background-color: steelblue;
+}
+
+.container {
+  /* Applies flex display to the container */
+  display: flex;
+}
+
+.container .main,
+.container .sidebar {
+  /* changes the box model to border-box sizing */
+  box-sizing: border-box;
+}
+
+.container main {
+  width: 70%;
+}
+
+.container aside {
+  width: 30%;
+  /* Margins work as with floats */
+  margin-left: 1.5em;
+}
+
+.container main {
+  background-color: red;
+}
+
+.container aside {
+  background-color: lightblue;
+}
