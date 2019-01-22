@@ -13,6 +13,13 @@ nav {
   display: inline-block;
 }
 
+.nav li + li {
+  /* Uncomment it if you don't want the space between links */
+  /*
+  margin-left: -4px;
+  */
+}
+
 .nav li a {
   /* !important: It makes the <ul> tag height equals to the <a> tag height. */
   display: inline-block;
