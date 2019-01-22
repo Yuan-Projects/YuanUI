@@ -1,0 +1,39 @@
+header, main, aside {
+  display: block;
+}
+
+header {
+  background-color: steelblue;
+}
+
+.container {
+  /* Establishes a new BFC */
+  overflow: hidden;
+}
+
+.container .main,
+.container .sidebar {
+  /* Float the two columns left */
+  float: left;
+  /* changes the box model to border-box sizing */
+  box-sizing: border-box;
+}
+
+.container main {
+  width: 70%;
+}
+
+.container aside {
+  /* Adds a margin as a gutter */
+  margin-left: 1.5em;
+  /* Subtracts 1.5em from the width */
+  width: calc(30% - 1.5em);
+}
+
+.container main {
+  background-color: red;
+}
+
+.container aside {
+  background-color: lightblue;
+}

@@ -1,0 +1,48 @@
+body {
+  /* Makes the horizontal scroll bar invisible, which caused by the css table layout */
+  overflow-x: hidden;
+}
+
+header {
+  display: block;
+}
+
+header {
+  background-color: steelblue;
+}
+
+.wrapper {
+  /* Adds a new wrapper element with negative margin */
+  margin: 0 -1.5em;
+}
+
+.container {
+  /* Makes the container layout resemble a table */
+  display: table;
+  /* Makes the table fill its container's width */
+  width: 100%;
+  /* Applies horizontal border spacing between table cells */
+  border-spacing: 1.5em 0;
+}
+
+.container .main,
+.container .sidebar {
+  /* Makes the column layout mimic table cells */
+  display: table-cell;
+}
+
+.container main {
+  width: 70%;
+}
+
+.container aside {
+  width: calc(30%);
+}
+
+.container main {
+  background-color: red;
+}
+
+.container aside {
+  background-color: lightblue;
+}

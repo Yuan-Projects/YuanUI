@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Two columns using float</title>
+    <link rel="stylesheet" type="text/css" href="css/two-columns-float.css">
+  </head>
+  <body>
+    <header>
+      <h1>Header</h1>
+    </header>
+    <div class="container">
+      <main class="main">
+        <h3>h3 header</h3>
+        <p>The main content area</p>
+        <div>
+          <pre>
+            float: left;
+            width: 70%;
+            box-sizing: border-box;
+            background-color: red;
+          </pre>
+        </div>
+      </main>
+      <aside class="sidebar">
+        <p>Widget 1</p>
+        <div>
+          <pre>
+            float: left;
+            width: calc(30% - 1.5em);
+            margin-left: 1.5em;
+            box-sizing: border-box;
+            background-color: lightblue;
+          </pre>
+        </div>
+      </aside>
+    </div>
+  </body>
+</html>
