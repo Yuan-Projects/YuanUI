@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style type="text/css">
+      .flex {
+        -ms-box-orient: horizontal;
+        display: -webkit-box;
+        display: -moz-box;
+        display: -ms-flexbox;
+        display: -moz-flex;
+        display: -webkit-flex;
+        display: flex;
+      }
+
+      .flex.no-shrink {
+        overflow: auto;
+      }
+
+      .flex.no-shrink > div {
+        flex-shrink: 0;
+      }
+
+      .flex.wrap {
+        flex-wrap: wrap;
+      }
+
+      .container {
+        background-color: #f9c5c5;
+        width: 800px;
+        margin: 1em auto;
+        padding: 0.5em;
+      }
+
+      .flex > div {
+        background-color: #f59794;
+        margin: 0.5em;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container flex">
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+    </div>
+
+    <div class="container flex no-shrink">
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+      <div>flex-shrink: 0</div>
+    </div>
+
+    <div class="container flex wrap">
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+      <div>flex: none</div>
+    </div>
+  </body>
+</html>
