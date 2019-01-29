@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Insert title here</title>
+    <style type="text/css">
+      body {
+        font-family: Helvetica, Arial, sans-serif;
+        margin: 0;
+      }
+
+      button {
+        padding: 0.5em 0.7em;
+        border: 1px solid #8d8d8d;
+        background-color: white;
+        font-size: 1em;
+      }
+
+      .modal {
+        /* Hides the modal by defaults */
+        display: none;
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        /* Uses a semi-transparent backdrop */
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-body {
+        position: fixed;
+        top: 3em;
+        bottom: 3em;
+        right: 20%;
+        left: 20%;
+        padding: 2em 3em;
+        background-color: white;
+        /* Allows the modal body to scroll, if necessary */
+        overflow: auto;
+      }
+
+      .modal-close {
+        position: absolute;
+        top: 0.3em;
+        right: 0.3em;
+        padding: 0.3em;
+        cursor: pointer;
+
+        font-size: 2em;
+        height: 1em;
+        width: 1em;
+        text-indent: 10em;
+        overflow: hidden;
+        border: 0;
+      }
+
+      .modal-close::after {
+        content: "\00D7";
+        position: absolute;
+        line-height: 0.5;
+        top: 0.2em;
+        left: 0.2em;
+        text-indent: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas id hendrerit dui. Proin pharetra lorem est, nec dapibus leo semper consequat. Phasellus bibendum tempor lectus, quis semper sapien porta eu. Etiam efficitur, odio et efficitur condimentum, mauris orci imperdiet quam, vel varius nisl lectus nec nibh. Praesent aliquam tortor sit amet odio porttitor mattis. Praesent vitae nunc id augue ultricies semper quis sed augue. Vestibulum dignissim dui in elementum feugiat. Aenean sagittis nunc posuere, feugiat justo a, pellentesque nunc. Nulla venenatis est eu ante congue laoreet. In porttitor odio id sapien porttitor, euismod molestie erat rutrum. Vestibulum eros lacus, lacinia ac consequat ornare, maximus nec lorem.</p>
+
+    <p>Maecenas sodales accumsan diam, ut placerat lacus dignissim a. Vivamus arcu metus, convallis in congue non, tempor eget justo. Ut commodo lorem dictum, commodo eros quis, luctus lacus. Aliquam lacus elit, consectetur sit amet elit eleifend, molestie varius urna. In nec imperdiet neque, in vehicula ipsum. Sed congue mi ac ipsum dapibus viverra. Quisque feugiat ullamcorper enim in auctor. Vivamus nec nulla efficitur, euismod nibh eget, dignissim odio. Integer libero metus, ullamcorper vitae est ut, finibus posuere nisl. Nam suscipit metus quis felis pretium, vitae gravida velit mollis.</p>
+
+    <p>Morbi orci lorem, condimentum quis nunc eget, ultrices elementum tortor. Fusce at pulvinar leo. Phasellus finibus erat ac massa interdum, vitae ullamcorper sem gravida. Vestibulum vel augue vitae nisi ultricies vulputate nec eget dolor. Donec orci sapien, interdum condimentum lacus a, ornare euismod risus. Maecenas et arcu non neque aliquam feugiat vitae interdum eros. Praesent iaculis, mauris ac scelerisque pulvinar, mauris nunc pellentesque augue, interdum imperdiet nisl orci vel ante. Nam volutpat, nibh vitae malesuada porttitor, nibh nisi posuere turpis, tempus porta neque ex vel orci. Ut non nibh vel neque egestas placerat vel quis erat. Pellentesque iaculis suscipit suscipit. Ut pellentesque neque at blandit pretium.</p>
+
+    <p>Maecenas quis tristique eros. Nullam orci tortor, eleifend non dui sed, bibendum efficitur lacus. Duis lacinia elit nunc, at blandit ipsum eleifend sed. Pellentesque consectetur interdum felis sed hendrerit. Nunc et purus velit. Donec interdum rhoncus elementum. Morbi tempor elit quis massa commodo, in porta odio porta. Duis ut tellus id sapien ultrices facilisis. Integer vitae ipsum lectus. Suspendisse potenti. Ut auctor nibh elit. Praesent congue est ut aliquam vestibulum. Vivamus auctor, dolor vitae gravida ullamcorper, ante est faucibus eros, ut condimentum sapien erat non metus. Mauris aliquam ornare sapien, ac tincidunt quam faucibus ut. Nullam posuere vestibulum augue et dictum. Aenean pretium maximus libero a mattis.</p>
+
+    <p>Sed aliquet velit consequat, euismod augue quis, tincidunt lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque id ex commodo, dignissim odio nec, consectetur diam. Vivamus nec nisi convallis, fermentum lacus in, volutpat augue. Proin sed condimentum odio. Integer imperdiet congue dolor ac varius. In porta, leo quis feugiat auctor, quam neque vulputate purus, ut scelerisque nulla sem eu justo. Aliquam erat volutpat. Cras quam massa, malesuada ut mollis non, pulvinar sit amet ex. Pellentesque id tincidunt purus. In quis augue tempor, interdum lectus varius, facilisis odio. Duis tincidunt lectus sit amet justo condimentum, vitae mattis ante dapibus. Donec porttitor nunc at pretium pellentesque.</p>
+    <p><button id="open">Sign up</button> </p>
+    <div class="modal" id="modal">
+      <div class="modal-backdrop"></div>
+      <div class="modal-body">
+        <button class="modal-close" id="close">close</button>
+        <h2>Newsletter</h2>
+        <p>Sign up for our monthly newsletter. No spam.</p>
+        <form>
+          <p>
+            <label>Email address:</label>
+            <input type="text" name="email">
+          </p>
+          <p><button type="submit">Submit</button></p>
+        </form>
+      </div>
+    </div>
+    <script>
+      function id(str) {
+        return document.getElementById(str);
+      }
+
+      function click(idstr, fn) {
+        id(idstr).addEventListener('click', fn);
+      }
+
+      const modal = id('modal');
+      click('open', () => {
+        modal.style.display = 'block';
+      })
+      click('close', () => {
+        modal.style.display = 'none';
+      })
+    </script>
+  </body>
+</html>
