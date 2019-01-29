@@ -5,10 +5,28 @@
 }
 
 .dropdown-label {
-  padding: 0.5em 1.5em;
+  padding: 0.5em 2em 0.5em 1.5em;
   border: 1px solid #ccc;
   background-color: #eee;
   cursor: pointer;
+}
+
+.dropdown-label::after {
+  content: "";
+  /* Positions the element on the right side of the label */
+  position: absolute;
+  right: 1em;
+  top: 1em;
+  /* Uses the top border to form a down arrow */
+  border-width: 0.3em;
+  border-color: black transparent transparent;
+  border-style: solid;
+}
+
+.dropdown:hover .dropdown-label::after {
+  top: 0.7em;
+  /* On hover, changes to an up arrow */
+  border-color: transparent transparent black;
 }
 
 .dropdown ul {
