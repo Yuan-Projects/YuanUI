@@ -1,0 +1,51 @@
+/*
+Text center
+
+Center text within a block by applying `text-center`
+
+Markup:
+<p class="text-center">Centered text</p>
+
+Weight: 1
+
+Styleguide Utilities.text-center
+*/
+.text-center {
+  text-align: center !important;
+}
+
+/*
+Float left
+
+Float an element to the left with `float-left`
+
+Weight: 3
+
+Styleguide Utilities.float-left
+*/
+.float-left {
+  float: left;
+}
+
+/*
+Clearfix
+
+Add the class `clearfix` to an element to force it to contain its floated contents
+
+Markup:
+<div class="clearfix">
+  <span class="float-left">floated</span>
+</div>
+
+Weight: 2
+
+Styleguide Utilities.clearfix
+*/
+.clearfix::before,
+.clearfix::after {
+  content: " ";
+  display: table;
+}
+.clearfix::after {
+  clear: both;
+}
