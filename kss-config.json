@@ -8,6 +8,7 @@
     "../css/accordion.css",
     "../css/button.css",
     "../css/dropdown.css",
+    "../css/message.css",
     "../css/utilities.css"
   ],
   "homepage": "../homepage.md",
