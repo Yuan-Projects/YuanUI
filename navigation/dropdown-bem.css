@@ -1,7 +1,9 @@
 /*
 Dropdown
 
-Displays a dropdown menu.
+Displays a dropdown menu. Clicking the toggle button opens and closes the drawer.
+
+Use JavaScript to toggle the `is-open` class in order to open and close the dropdown.
 
 Markup:
 <div class="dropdown">
