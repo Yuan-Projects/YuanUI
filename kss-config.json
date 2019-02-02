@@ -9,6 +9,7 @@
     "../css/button.css",
     "../css/dropdown.css",
     "../css/message.css",
+    "../css/tooltip.css",
     "../css/utilities.css"
   ],
   "homepage": "../homepage.md",

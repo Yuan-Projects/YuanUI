@@ -1,3 +1,20 @@
+/*
+Tooltip
+
+Displays a tooltip box.
+
+Markup:
+<div class="tooltip {{modifier_class}}">
+  <p>Something.</p>
+</div>
+
+.tooltip--top - Top
+.tooltip--right - Right
+.tooltip--bottom   - Bottom
+.tooltip--left  - Left
+
+Styleguide Tooltip
+*/
 .tooltip {
   min-height: 10px;
   position: relative;
@@ -10,37 +27,37 @@
   color: white;
 }
 
-.tooltip.top::after {
+.tooltip::after {
+  border: 8px solid transparent;
+  content: "";
+  display: inline-block;
+  position: absolute;
+}
+
+.tooltip--top::after {
   border-bottom-color: black;
   top: -16px;
   left: 50%;
   margin-left: -8px;
 }
 
-.tooltip.right::after {
+.tooltip--right::after {
   border-left-color: black;
   top: 50%;
   left: 100%;
   margin-top: -8px;
 }
 
-.tooltip.bottom::after {
+.tooltip--bottom::after {
   border-top-color: black;
   top: 100%;
   left: 50%;
   margin-left: -8px;
 }
 
-.tooltip.left::after {
+.tooltip--left::after {
   border-right-color: black;
   top: 50%;
   left: -16px;
   margin-top: -8px;
-}
-
-.tooltip::after {
-  border: 8px solid transparent;
-  content: "";
-  display: inline-block;
-  position: absolute;
 }
