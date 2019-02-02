@@ -1,0 +1,53 @@
+/*
+Dropdown
+
+Displays a dropdown menu.
+
+Markup:
+<div class="dropdown">
+  <button class="dropdown__toggle">Main Menu</button>
+  <div class="dropdown__drawer">
+    <p>text goes here.</p>
+  </div>
+</div>
+
+Styleguide Dropdown
+*/
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown__toggle {
+  padding: 0.5em 2em 0.5em 1.5em;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: #eee;
+  cursor: pointer;
+}
+
+.dropdown__toggle::after {
+  content: "";
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  border: 0.3em solid;
+  border-color: black transparent transparent;
+}
+
+.dropdown__drawer {
+  position: absolute;
+  display: none;
+  min-width: 100%;
+  background-color: #eee;
+}
+
+.dropdown.is-open .dropdown__toggle::after {
+  top: 0.7em;
+  border-color: transparent transparent black;
+}
+
+.dropdown.is-open .dropdown__drawer {
+  display: block;
+}
