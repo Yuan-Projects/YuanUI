@@ -9,5 +9,8 @@
     "../button/button.css",
     "../navigation/dropdown-bem.css"
   ],
-  "homepage": "../homepage.md"
+  "homepage": "../homepage.md",
+  "js": [
+    "../js/docs.js"
+  ]
 }
