@@ -1,13 +1,13 @@
 {
   "title": "YuanUI pattern library",
   "source": [
-    "./button",
-    "./navigation"
+    "./css"
   ],
   "destination": "docs/",
   "css": [
-    "../button/button.css",
-    "../navigation/dropdown-bem.css"
+    "../css/button.css",
+    "../css/dropdown.css",
+    "../css/utilities.css"
   ],
   "homepage": "../homepage.md",
   "js": [
