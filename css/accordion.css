@@ -1,0 +1,97 @@
+/*
+Accordion
+
+Displays an accordion element.
+
+Tested on:
+ * Chrome 53 on Windows 10
+ * Firefox 47 on Windows 10
+ * Edge 13 on Windows 10
+ * IE 11 on Windows 10
+ * IE 10 on Windows 7
+ * IE 9 on Windows 7
+
+Markup:
+<h2>Without animation</h2>
+<div class="accordion">
+  <label class="accordion__toggle" for="checkbox1">Hello paragraph 1</label>
+  <input type="checkbox" id="checkbox1" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the first div.
+  </div>
+  <label class="accordion__toggle" for="checkbox2">Hello paragraph 2</label>
+  <input type="checkbox" id="checkbox2" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the second div.
+  </div>
+  <label class="accordion__toggle" for="checkbox3">Hello paragraph 3</label>
+  <input type="checkbox" id="checkbox3" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+  </div>
+</div>
+<h2>Animation 1: with a fixed height of 100px</h2>
+<div class="accordion--fixed-height">
+  <label class="accordion__toggle" for="checkbox4">Hello paragraph 1</label>
+  <input type="checkbox" id="checkbox4" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the first div.
+  </div>
+  <label class="accordion__toggle" for="checkbox5">Hello paragraph 2</label>
+  <input type="checkbox" id="checkbox5" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the second div.
+  </div>
+  <label class="accordion__toggle" for="checkbox6">Hello paragraph 3</label>
+  <input type="checkbox" id="checkbox6" class="accordion__hiddeninput" />
+  <div class="accordion__drawer">
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+    Hello , this is the third div.<br />
+  </div>
+</div>
+
+Styleguide Accordion
+*/
+
+.accordion {
+
+}
+
+.accordion__hiddeninput {
+  display: none;
+}
+
+.accordion__toggle {
+  background-color: lightgreen;
+  display: block;
+  cursor: pointer;
+}
+
+.accordion__drawer {
+  height: 0;
+  background: #d5d5d5;
+  overflow: hidden;
+}
+
+.accordion__hiddeninput:checked + .accordion__drawer {
+  height: auto;
+}
+
+/* Fixed height */
+.accordion--fixed-height .accordion__drawer {
+  -webkit-transition: height 2s linear;
+  transition: height 2s linear;
+  overflow: auto;
+}
+.accordion--fixed-height .accordion__hiddeninput:checked + .accordion__drawer {
+  height: 100px;
+}
