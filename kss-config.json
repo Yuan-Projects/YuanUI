@@ -1,0 +1,10 @@
+{
+  "title": "YuanUI pattern library",
+  "source": [
+    "./button"
+  ],
+  "destination": "docs/",
+  "css": [
+    "../button/button.css"
+  ]
+}
