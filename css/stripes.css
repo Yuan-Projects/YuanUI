@@ -1,0 +1,16 @@
+/*
+Stripes
+
+Display stripes in CSS.
+
+Markup:
+<div class="strip-1"></div>
+
+Styleguide Stripes
+*/
+.strip-1 {
+  height: 1em;
+  width: 100%;
+  background-image: repeating-linear-gradient(-45deg, #57b, #57b 10px, #148 10px, #148 20px);
+  border-radius: 0.3em;
+}
