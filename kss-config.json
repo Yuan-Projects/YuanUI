@@ -6,6 +6,7 @@
   "destination": "docs/",
   "css": [
     "../css/accordion.css",
+    "../css/banner.css",
     "../css/button.css",
     "../css/dropdown.css",
     "../css/message.css",

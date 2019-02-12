@@ -1,0 +1,27 @@
+/*
+Banner
+
+Displays a site's main banner.
+
+Markup:
+<div class="hero">
+  <div class="hero__inner">
+    <h1>H1 heading</h1>
+    <p>Some text goes here.</p>
+  </div>
+</div>
+
+Styleguide Banner
+*/
+.hero {
+  background-image: url(../images/collaboration.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding: 3em 0;
+}
+
+.hero__inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  text-align: center;
+}
