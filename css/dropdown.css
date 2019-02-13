@@ -6,12 +6,15 @@ Displays a dropdown menu. Clicking the toggle button opens and closes the drawer
 Use JavaScript to toggle the `is-open` class in order to open and close the dropdown.
 
 Markup:
-<div class="dropdown">
+<div class="dropdown {{modifier_class}}">
   <button class="dropdown__toggle">Main Menu</button>
   <div class="dropdown__drawer">
     <p>text goes here.</p>
   </div>
 </div>
+
+.dropdown--slide - Sliding open and closed.
+.dropdown--fade - Fade in and out the menu.
 
 Styleguide Dropdown
 */
@@ -43,6 +46,26 @@ Styleguide Dropdown
   display: none;
   min-width: 100%;
   background-color: #eee;
+}
+
+.dropdown.dropdown--fade .dropdown__drawer {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s linear, visibility 0s linear 0.2s;
+}
+
+.dropdown--fade.is-open .dropdown__drawer {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.dropdown.dropdown--slide .dropdown__drawer {
+  display: block;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease-out;
 }
 
 .dropdown.is-open .dropdown__toggle::after {

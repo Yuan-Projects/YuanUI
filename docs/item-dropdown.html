@@ -136,12 +136,15 @@
 
         <div class="kss-modifier__wrapper">
           <div class="kss-modifier__heading kss-style">
-            Example
+            Examples
           </div>
 
+            <div class="kss-modifier__default-name kss-style">
+              Default styling
+            </div>
 
           <div class="kss-modifier__example">
-            <div class="dropdown">
+            <div class="dropdown ">
   <button class="dropdown__toggle">Main Menu</button>
   <div class="dropdown__drawer">
     <p>text goes here.</p>
@@ -150,13 +153,43 @@
             <div class="kss-modifier__example-footer"></div>
           </div>
 
+            <div class="kss-modifier__name kss-style">
+              .dropdown--slide
+            </div>
+            <div class="kss-modifier__description kss-style">
+              Sliding open and closed.
+            </div>
+            <div class="kss-modifier__example">
+              <div class="dropdown dropdown--slide">
+  <button class="dropdown__toggle">Main Menu</button>
+  <div class="dropdown__drawer">
+    <p>text goes here.</p>
+  </div>
+</div>
+              <div class="kss-modifier__example-footer"></div>
+            </div>
+            <div class="kss-modifier__name kss-style">
+              .dropdown--fade
+            </div>
+            <div class="kss-modifier__description kss-style">
+              Fade in and out the menu.
+            </div>
+            <div class="kss-modifier__example">
+              <div class="dropdown dropdown--fade">
+  <button class="dropdown__toggle">Main Menu</button>
+  <div class="dropdown__drawer">
+    <p>text goes here.</p>
+  </div>
+</div>
+              <div class="kss-modifier__example-footer"></div>
+            </div>
         </div>
 
           <details class="kss-markup kss-style">
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dropdown"</span>&gt;</span>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dropdown [modifier class]"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dropdown__toggle"</span>&gt;</span>Main Menu<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"dropdown__drawer"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>text goes here.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
