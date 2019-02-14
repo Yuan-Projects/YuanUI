@@ -1,0 +1,71 @@
+/*
+CardFlip
+
+Displays a card flip.
+
+Use JavaScript to toggle the `is-flipped` class in order to flip the card.
+
+Note: IE doest not support `transform-style: preserve-3d`, so we turn off animation on IE.
+
+Markup:
+<div class="scene">
+  <div class="card">
+    <div class="card__face card__face--front">front</div>
+    <div class="card__face card__face--back">back</div>
+  </div>
+</div>
+<script type="text/javascript">
+  var cards = document.querySelectorAll('.card');
+  Array.prototype.forEach.call(cards, function(card) {
+    card.addEventListener('click', function (event) {
+      card.classList.toggle('is-flipped');
+    });
+  });
+</script>
+
+
+Styleguide CardFlip
+*/
+.scene {
+  min-height: 200px;
+  perspective: 600px;
+
+  display: flex;
+  justify-content: center;
+}
+.card {
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+
+}
+.card__face {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  backface-visibility: hidden;
+}
+.card__face--front {
+  background: red;
+}
+
+.card__face--back {
+  background: blue;
+  transform: rotateY( 180deg );
+}
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* Disable transform on IE */
+.card {
+  -ms-transition: none;
+}
+.card.is-flipped {
+  -ms-transform: none;
+}
+.card.is-flipped .card__face--back {
+  -ms-transform: rotateY(0deg);
+}
