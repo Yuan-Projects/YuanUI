@@ -1,0 +1,45 @@
+/*
+Loading Spinner
+
+Displays a loading spinner in a button.
+
+Use JavaScript to toggle the `is-loading` class in order to enable and disable the spinner.
+
+Markup:
+<p>Please click the button</p>
+<button id="submit-button" style="padding: 0.6em 1em; border: 0; background-color: hsl(220, 50%, 50%);color: white;">Save</button>
+<script>
+var btn = document.querySelector('#submit-button');
+btn.addEventListener('click', function() {
+  btn.classList.toggle('is-loading');
+});
+</script>
+
+Styleguide Loading Spinner
+*/
+button.is-loading {
+  position: relative;
+  color: transparent !important;/* Hides the button text */
+}
+button.is-loading::after {
+  content: '';
+  position: absolute;
+  width: 1.4em;
+  height: 1.4em;
+  /* Positions pseudo-element in the center of the button */
+  left: 50%;
+  top: 50%;
+  margin-left: -0.7em;
+  margin-top: -0.7em;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: btn-loading-spin 0.5s linear infinite; /* Loops spin animation repeatedly */
+}
+@keyframes btn-loading-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

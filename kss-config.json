@@ -10,6 +10,7 @@
     "../css/button.css",
     "../css/cardflip.css",
     "../css/dropdown.css",
+    "../css/loadingspinner.css",
     "../css/message.css",
     "../css/stripes.css",
     "../css/tooltip.css",
