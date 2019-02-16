@@ -1,0 +1,132 @@
+/*
+Checkbox
+
+A checkbox is a UI element that allows users to switch between two options(checked or uncheck, on or off).
+
+Note: The `<label>` must appear after the `<input type="checkbox" class="checkbox">` due to the lack of parent selectors in CSS.
+
+Markup:
+<h2>Default CheckBox</h2>
+<div>
+  <input type="checkbox" id="checkbox1" name="checkbox1" class="checkbox">
+  <label for="checkbox1">Checkbox</label>
+</div>
+<h2>Selected CheckBox</h2>
+<div>
+  <input type="checkbox" id="checkbox1a" name="checkbox1a" checked class="checkbox">
+  <label for="checkbox1a">Checkbox selected</label>
+</div>
+<h2>Disabled CheckBox</h2>
+<div>
+  <input type="checkbox" id="checkbox2" disabled name="checkbox2" class="checkbox">
+  <label for="checkbox2">Checkbox Disabled</label>
+</div>
+<div>
+  <input type="checkbox" id="checkbox3" disabled checked name="checkbox3" class="checkbox">
+  <label for="checkbox3">Checkbox Disabled Checked</label>
+</div>
+
+Styleguide Checkbox
+*/
+
+/* Make the default checkbox invisible */
+input[type="checkbox"].checkbox {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+/* The label must appear after the <input type="checkbox" class="checkbox"> */
+input[type="checkbox"].checkbox + label {
+  position: relative;
+}
+/* Add the box for the fake checkbox */
+input[type="checkbox"].checkbox + label::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  vertical-align: text-top;
+  box-sizing: border-box;
+  margin-right: 0.2em;
+}
+/*Adding focus styles on the outer-box of the fake checkbox*/
+input[type="checkbox"].checkbox:focus + label::before {
+  outline: rgb(59, 153, 252) auto 5px;
+}
+/* Highlight the fake checkbox by changing its background-color and border-color */
+input[type="checkbox"].checkbox:checked + label::before {
+  background-color: #0078d7;
+  border-color: #0078d7;
+}
+input[type="checkbox"].checkbox:disabled + label::before {
+  background-color: #a6a6a6;
+}
+
+/*Checkmark of the fake checkbox*/
+input[type="checkbox"].checkbox + label::after {
+  /*Hide the checkmark by default*/
+  content: none;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.4em;
+  height: 0.6em;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg) translate(0.3em, -0.2em);
+  border-color: white;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+/*Unhide on the checked state*/
+input[type="checkbox"].checkbox:checked + label::after {
+  content: "";
+}
+/*
+.checkbox {
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  vertical-align: text-top;
+}
+
+label .checkbox {
+  margin-right: 0.4em;
+}
+
+.checkbox.is-checked {
+  background-color: #0078d7;
+  border-color: #0078d7;
+}
+
+.checkbox::after {
+  display: none;
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 0.4em;
+  height: 0.6em;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+  transform: rotate(45deg) translate(0.2em, -0.2em);
+}
+
+.checkbox.is-checked::after {
+  display: block;
+  border-color: white;
+}
+*/

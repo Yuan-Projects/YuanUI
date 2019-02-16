@@ -9,6 +9,7 @@
     "../css/banner.css",
     "../css/button.css",
     "../css/cardflip.css",
+    "../css/checkbox.css",
     "../css/dropdown.css",
     "../css/loadingspinner.css",
     "../css/message.css",
