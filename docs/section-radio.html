@@ -23,7 +23,7 @@
 <link rel="stylesheet" href="../css/utilities.css">
 
 </head>
-<body id="kss-node" class="kss-fullscreen-mode">
+<body id="kss-node" >
 
 <div class="kss-sidebar kss-style">
   <header class="kss-header">
@@ -103,23 +103,43 @@
 <main class="kss-main" aria-label="Content">
   <article>
 
-    <div id="kssref-loading-spinner" class="kss-section kss-section--depth-1 is-fullscreen">
+    <div id="kssref-radio" class="kss-section kss-section--depth-1 ">
 
       <div class="kss-style">
         <h1 class="kss-title kss-title--level-1">
-          <a class="kss-title__permalink" href="#kssref-loading-spinner">
+          <a class="kss-title__permalink" href="#kssref-radio">
             <span class="kss-title__ref">
-              7
+              9
               <span class="kss-title__permalink-hash">
-                  #Loading Spinner
+                  #Radio
               </span>
             </span>
-            Loading Spinner
+            Radio
           </a>
         </h1>
 
           <p class="kss-toolbar">
-            <a href="#kssref-loading-spinner" data-kss-guides="true">
+              <a href="#kssref-radio" data-kss-fullscreen="kssref-radio">
+                <span class="kss-toolbar__tooltip">Toggle full screen</span>
+                <svg focusable="false" aria-hidden="true" class="off" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M64 0v26l-10-10-12 12-6-6 12-12-10-10zM28 42l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+                <svg focusable="false" aria-hidden="true" class="on" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <path class="kss-toolbar__icon-fill" d="M28 36v26l-10-10-12 12-6-6 12-12-10-10zM64 6l-12 12 10 10h-26v-26l10 10 12-12z"></path>
+                </svg>
+              </a>
+              <a href="item-radio.html" target="_blank">
+                <span class="kss-toolbar__tooltip">Open in new window</span>
+                <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
+                  <rect x="0" y="20" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M40,64l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="0" y="20" width="40" height="10"/>
+                  <rect x="24" y="0" width="40" height="44" fill="#fff"/>
+                  <path class="kss-toolbar__icon-fill" d="M64,44l-40,0l0,-44l40,0l0,44Zm-36,-40l0,36l32,0l0,-36l-32,0Z"/>
+                  <rect class="kss-toolbar__icon-fill" x="24" y="0" width="40" height="10"/>
+                </svg>
+              </a>
+            <a href="#kssref-radio" data-kss-guides="true">
               <span class="kss-toolbar__tooltip">Toggle example guides</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
@@ -140,7 +160,7 @@
                 <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
               </svg>
             </a>
-            <a href="#kssref-loading-spinner" data-kss-markup="true">
+            <a href="#kssref-radio" data-kss-markup="true">
               <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
@@ -150,8 +170,8 @@
           </p>
 
           <div class="kss-description">
-            <p>Displays a loading spinner in a button.</p>
-<p>Use JavaScript to toggle the <code>is-loading</code> class in order to enable and disable the spinner.</p>
+            <p>A radio button is a UI element that allows users to switch between two options(checked or uncheck).</p>
+<p>Note: The <code>&lt;label&gt;</code> must appear after the <code>&lt;input type=&quot;radio&quot; class=&quot;radio&quot;&gt;</code> due to the lack of parent selectors in CSS.</p>
 
           </div>
 
@@ -165,14 +185,22 @@
 
 
           <div class="kss-modifier__example">
-            <p>Please click the button</p>
-<button id="submit-button" style="padding: 0.6em 1em; border: 0; background-color: hsl(220, 50%, 50%);color: white;">Save</button>
-<script>
-var btn = document.querySelector('#submit-button');
-btn.addEventListener('click', function() {
-  btn.classList.toggle('is-loading');
-});
-</script>
+            <h2>Default radio group</h2>
+<p>Select a maintenance drone:</p>
+<div>
+  <input type="radio" id="huey" name="drone" value="huey" checked class="radio">
+  <label for="huey">Huey</label>
+</div>
+<div>
+  <input type="radio" id="dewey" name="drone" value="dewey" class="radio">
+  <label for="dewey">Dewey</label>
+</div>
+<div>
+  <input type="radio" id="louie" name="drone" value="louie" class="radio">
+  <label for="louie">Louie</label>
+</div>
+<h2>Disabled radio button</h2>
+Radio Button: <input type="radio" id="myRadio" disabled class="radio"><label for="myRadio">Disabled radio</label>
             <div class="kss-modifier__example-footer"></div>
           </div>
 
@@ -182,18 +210,26 @@ btn.addEventListener('click', function() {
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Please click the button<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"submit-button"</span> <span class="hljs-attr">style</span>=<span class="hljs-string">"padding: 0.6em 1em; border: 0; background-color: hsl(220, 50%, 50%);color: white;"</span>&gt;</span>Save<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-keyword">var</span> btn = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#submit-button'</span>);
-btn.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  btn.classList.toggle(<span class="hljs-string">'is-loading'</span>);
-});
-</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Default radio group<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Select a maintenance drone:<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"huey"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"drone"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"huey"</span> <span class="hljs-attr">checked</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"radio"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"huey"</span>&gt;</span>Huey<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"dewey"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"drone"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"dewey"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"radio"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"dewey"</span>&gt;</span>Dewey<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"louie"</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"drone"</span> <span class="hljs-attr">value</span>=<span class="hljs-string">"louie"</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"radio"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"louie"</span>&gt;</span>Louie<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">h2</span>&gt;</span>Disabled radio button<span class="hljs-tag">&lt;/<span class="hljs-name">h2</span>&gt;</span>
+Radio Button: <span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"radio"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"myRadio"</span> <span class="hljs-attr">disabled</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"radio"</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">label</span> <span class="hljs-attr">for</span>=<span class="hljs-string">"myRadio"</span>&gt;</span>Disabled radio<span class="hljs-tag">&lt;/<span class="hljs-name">label</span>&gt;</span></span></code></pre>
           </details>
 
         <div class="kss-source kss-style">
-          Source: <code>loadingspinner.css</code>, line 1
+          Source: <code>radio.css</code>, line 1
         </div>
 
     </div>

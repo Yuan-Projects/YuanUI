@@ -1,0 +1,91 @@
+/*
+Radio
+
+A radio button is a UI element that allows users to switch between two options(checked or uncheck).
+
+Note: The `<label>` must appear after the `<input type="radio" class="radio">` due to the lack of parent selectors in CSS.
+
+Markup:
+<h2>Default radio group</h2>
+<p>Select a maintenance drone:</p>
+<div>
+  <input type="radio" id="huey" name="drone" value="huey" checked class="radio">
+  <label for="huey">Huey</label>
+</div>
+<div>
+  <input type="radio" id="dewey" name="drone" value="dewey" class="radio">
+  <label for="dewey">Dewey</label>
+</div>
+<div>
+  <input type="radio" id="louie" name="drone" value="louie" class="radio">
+  <label for="louie">Louie</label>
+</div>
+<h2>Disabled radio button</h2>
+Radio Button: <input type="radio" id="myRadio" disabled class="radio"><label for="myRadio">Disabled radio</label>
+
+Styleguide Radio
+*/
+
+/* Make the default radio invisible */
+input[type="radio"].radio {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
+
+/* The label must appear after the <input type="radio" class="radio"> */
+input[type="radio"].radio + label {
+  position: relative;
+}
+/* Add the box for the fake radio */
+input[type="radio"].radio + label::before {
+  content: "";
+  width: 1em;
+  height: 1em;
+  border: 1px solid black;
+  border-radius: 0.5em;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-block;
+  vertical-align: text-top;
+  box-sizing: border-box;
+  margin-right: 0.2em;
+}
+/*Adding focus styles on the outer-box of the fake radio*/
+input[type="radio"].radio:focus + label::before {
+  outline: rgb(59, 153, 252) auto 5px;
+}
+/* Highlight the fake radio by changing its background-color and border-color */
+input[type="radio"].radio:checked + label::before {
+  background-color: #0078d7;
+  border-color: #0078d7;
+}
+input[type="radio"].radio:disabled + label::before {
+  background-color: #a6a6a6;
+}
+
+/*Checkmark of the fake radio*/
+input[type="radio"].radio + label::after {
+  /*Hide the checkmark by default*/
+  content: none;
+  position: absolute;
+  left: 0.25em;
+  top: 0.25em;
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 0.25em;
+  /*
+  transform: rotate(45deg) translate(0.3em, -0.2em);
+  */
+  background-color: white;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+/*Unhide on the checked state*/
+input[type="radio"].radio:checked + label::after {
+  content: "";
+}
