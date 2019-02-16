@@ -49,3 +49,24 @@ Styleguide Utilities.clearfix
 .clearfix::after {
   clear: both;
 }
+
+/*
+Hidden
+
+Positioning content off-screen, while still allow it to be read by screen readers.
+
+Markup:
+<div class="hidden">This text is hidden.</div>
+
+Weight: 4
+
+Styleguide Utilities.hidden
+*/
+.hidden {
+  position:absolute;
+  left:-10000px;
+  top:auto;
+  width:1px;
+  height:1px;
+  overflow:hidden;
+}
