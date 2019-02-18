@@ -1,0 +1,61 @@
+/*
+Masonry
+
+Building masonry layouts with pure CSS.
+
+As its class name indicates, `.mansory-multicol` is using CSS mutiple columns to achive the layout. In our example, it defaults to 3 columns, and does not responsive to fewer columns if the container gets narrower. But you can add a `column-width` property on the container to make it responsible.
+
+Markup:
+<div class="masonry-multicol">
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">1</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">2</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">
+      <p style="height: 200px;">3</p>
+    </div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">4</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">5</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">6</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">7</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">8</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">9</div>
+  </div>
+</div>
+
+Styleguide Masonry
+*/
+.masonry-multicol {
+  -webkit-column-count: 3;
+  column-count: 3; /* Defaults to 3 columns */
+  box-sizing: border-box;
+}
+
+.masonry-multicol__tile {
+  transition: all 0.3s;
+  -webkit-column-break-inside: avoid;
+  break-inside: avoid; /* Ensures content blocks don't break and span across columns. */
+  box-sizing: inherit;
+  padding: 5px;
+  border: 1px solid black;
+  margin-bottom: 1em; /* The bottom margin defaults to 1em */
+}
+
+.masonry-multicol__tile:hover {
+  background-color: #eee;
+}
