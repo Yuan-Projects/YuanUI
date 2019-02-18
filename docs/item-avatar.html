@@ -115,23 +115,23 @@
 <main class="kss-main" aria-label="Content">
   <article>
 
-    <div id="kssref-tooltip" class="kss-section kss-section--depth-1 is-fullscreen">
+    <div id="kssref-avatar" class="kss-section kss-section--depth-1 is-fullscreen">
 
       <div class="kss-style">
         <h1 class="kss-title kss-title--level-1">
-          <a class="kss-title__permalink" href="#kssref-tooltip">
+          <a class="kss-title__permalink" href="#kssref-avatar">
             <span class="kss-title__ref">
-              13
+              2
               <span class="kss-title__permalink-hash">
-                  #Tooltip
+                  #Avatar
               </span>
             </span>
-            Tooltip
+            Avatar
           </a>
         </h1>
 
           <p class="kss-toolbar">
-            <a href="#kssref-tooltip" data-kss-guides="true">
+            <a href="#kssref-avatar" data-kss-guides="true">
               <span class="kss-toolbar__tooltip">Toggle example guides</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <rect class="kss-toolbar__icon-fill" x="5" y="35" width="5" height="9"/>
@@ -152,7 +152,7 @@
                 <rect class="kss-toolbar__icon-fill" x="20" y="54" width="9" height="5"/>
               </svg>
             </a>
-            <a href="#kssref-tooltip" data-kss-markup="true">
+            <a href="#kssref-avatar" data-kss-markup="true">
               <span class="kss-toolbar__tooltip">Toggle HTML markup</span>
               <svg focusable="false" aria-hidden="true" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 64 64">
                 <path class="kss-toolbar__icon-fill" d="M37.555,46.239l6.103,6.103l20.342,-20.342l-20.342,-20.342l-6.103,6.103l14.24,14.239l-14.24,14.239Z"/>
@@ -162,7 +162,7 @@
           </p>
 
           <div class="kss-description">
-            <p>Displays a tooltip box.</p>
+            <p>Displays an avatar, usually used in a comment list.</p>
 
           </div>
 
@@ -179,57 +179,39 @@
             </div>
 
           <div class="kss-modifier__example">
-            <div class="tooltip ">
-  <p>Something.</p>
+            <div class="avatar ">
+  <div class="avatar__img-wrapper">
+    <img src="../images/avatar.png" alt="avatar" />
+  </div>
 </div>
             <div class="kss-modifier__example-footer"></div>
           </div>
 
             <div class="kss-modifier__name kss-style">
-              .tooltip--top
+              .avatar--circle
             </div>
             <div class="kss-modifier__description kss-style">
-              Top
+              Displays the avatar in a circle
             </div>
             <div class="kss-modifier__example">
-              <div class="tooltip tooltip--top">
-  <p>Something.</p>
+              <div class="avatar avatar--circle">
+  <div class="avatar__img-wrapper">
+    <img src="../images/avatar.png" alt="avatar" />
+  </div>
 </div>
               <div class="kss-modifier__example-footer"></div>
             </div>
             <div class="kss-modifier__name kss-style">
-              .tooltip--right
+              .avatar--tilt
             </div>
             <div class="kss-modifier__description kss-style">
-              Right
+              Displays the avatar in a sloping position
             </div>
             <div class="kss-modifier__example">
-              <div class="tooltip tooltip--right">
-  <p>Something.</p>
-</div>
-              <div class="kss-modifier__example-footer"></div>
-            </div>
-            <div class="kss-modifier__name kss-style">
-              .tooltip--bottom
-            </div>
-            <div class="kss-modifier__description kss-style">
-              Bottom
-            </div>
-            <div class="kss-modifier__example">
-              <div class="tooltip tooltip--bottom">
-  <p>Something.</p>
-</div>
-              <div class="kss-modifier__example-footer"></div>
-            </div>
-            <div class="kss-modifier__name kss-style">
-              .tooltip--left
-            </div>
-            <div class="kss-modifier__description kss-style">
-              Left
-            </div>
-            <div class="kss-modifier__example">
-              <div class="tooltip tooltip--left">
-  <p>Something.</p>
+              <div class="avatar avatar--tilt">
+  <div class="avatar__img-wrapper">
+    <img src="../images/avatar.png" alt="avatar" />
+  </div>
 </div>
               <div class="kss-modifier__example-footer"></div>
             </div>
@@ -239,13 +221,15 @@
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"tooltip [modifier class]"</span>&gt;</span>
-  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Something.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"avatar [modifier class]"</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"avatar__img-wrapper"</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"../images/avatar.png"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"avatar"</span> /&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span></code></pre>
           </details>
 
         <div class="kss-source kss-style">
-          Source: <code>tooltip.css</code>, line 1
+          Source: <code>avatar.css</code>, line 1
         </div>
 
     </div>
