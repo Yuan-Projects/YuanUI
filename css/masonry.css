@@ -3,9 +3,18 @@ Masonry
 
 Building masonry layouts with pure CSS.
 
-As its class name indicates, `.mansory-multicol` is using CSS mutiple columns to achive the layout. In our example, it defaults to 3 columns, and does not responsive to fewer columns if the container gets narrower. But you can add a `column-width` property on the container to make it responsible.
+As its class name indicates, `.mansory-multicol` is using CSS [mutiple columns](https://caniuse.com/#feat=multicolumn) to achive the layout. In our example, it defaults to 3 columns, and does not responsive to fewer columns if the container gets narrower. But you can add a `column-width` property on the container to make it responsible.
+
+We can also implement the horizontal masonry layout with [Flexbox](https://caniuse.com/#feat=flexbox). Making a vertical flexbox masonry is possible, to do so, we have to give our container a fixed height then set the `flex-direction` to `column`. The problems is that we have to tweak the height of the container every time new items added to it. So we don't recommend this approach.
+
+Works on
+ * IE 10+
+ * Firefox
+ * Chrome
+ * Safari
 
 Markup:
+<h2>Masonry laout with Multiple columns</h2>
 <div class="masonry-multicol">
   <div class="masonry-multicol__tile">
     <div class="masonry-multicol__tile-content">1</div>
@@ -37,6 +46,102 @@ Markup:
     <div class="masonry-multicol__tile-content">9</div>
   </div>
 </div>
+<h2>Masonry laout with Multiple columns (no gutter)</h2>
+<div class="masonry-multicol masonry-multicol--nogutter">
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">1</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">2</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">
+      <p style="height: 200px;">3</p>
+    </div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">4</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">5</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">6</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">7</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">8</div>
+  </div>
+  <div class="masonry-multicol__tile">
+    <div class="masonry-multicol__tile-content">9</div>
+  </div>
+</div>
+<h2>Masonry laout with flexbox</h2>
+<div class="masonry-flexbox">
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:130px;">1</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:150px;">2</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">
+      <p style="height: 200px;">3</p>
+    </div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:190px;">4</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width: 600px; height: 200px;">5</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width: 400px; height: 170px;">6</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">7</div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">8</div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">9</div>
+  </div>
+</div>
+<h2>Masonry laout with flexbox (no gutter)</h2>
+<div class="masonry-flexbox masonry-flexbox--nogutter">
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:130px;">1</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:150px;">2</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">
+      <p style="height: 200px;">3</p>
+    </div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width:190px;">4</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width: 600px; height: 200px;">5</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content"><div style="width: 400px; height: 170px;">6</div></div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">7</div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">8</div>
+  </div>
+  <div class="masonry-flexbox__tile">
+    <div class="masonry-flexbox__tile-content">9</div>
+  </div>
+</div>
 
 Styleguide Masonry
 */
@@ -47,7 +152,7 @@ Styleguide Masonry
 }
 
 .masonry-multicol__tile {
-  transition: all 0.3s;
+  transition: background-color 0.3s;
   -webkit-column-break-inside: avoid;
   break-inside: avoid; /* Ensures content blocks don't break and span across columns. */
   box-sizing: inherit;
@@ -58,4 +163,45 @@ Styleguide Masonry
 
 .masonry-multicol__tile:hover {
   background-color: #eee;
+}
+
+.masonry-multicol--nogutter {
+  column-gap: 0;
+}
+
+.masonry-multicol--nogutter .masonry-multicol__tile {
+  margin-bottom: 0;
+}
+
+/* Flexbox */
+.masonry-flexbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  /* Adjustment for the gutter */
+  margin-right: -1em;
+}
+
+.masonry-flexbox__tile {
+  box-sizing: border-box;
+  border: 1px solid black;
+  transition: background-color 0.3s;
+  flex: 1 1 auto;
+  /* IE 10-11 ignore calc() functions used in flex shorthand declarations, we need to specify the flex-basis individually. */
+  flex-basis: calc(33.33% - 2em); /* Defaults to 3 columns */
+  background-color: gray;
+  margin-bottom: 1em; /* Add gutter */
+  margin-right: 1em;
+}
+
+.masonry-flexbox__tile:hover {
+  background-color: #eee;
+}
+
+.masonry-flexbox--nogutter {
+  margin-right: 0;
+}
+
+.masonry-flexbox--nogutter .masonry-flexbox__tile {
+  margin: 0;
 }
