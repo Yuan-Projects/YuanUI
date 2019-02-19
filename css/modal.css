@@ -1,0 +1,109 @@
+/*
+Modal
+
+Displays a dialog to your webpage.
+
+Use JavaScript to toggle the `is-open` class in order to open and close the dialog.
+
+Markup:
+<button id="btn1">Click</button>
+<div class="modal" id="modal1">
+  <div class="modal__dialog">
+    <div class="modal__header">
+      <div class="modal__title">Modal title</div>
+      <button class="modal__close">close</button>
+    </div>
+    <div class="modal__body">
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+    </div>
+    <div class="modal__footer">
+      <button type="button">Close</button>
+      <button type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+<script>
+document.querySelector('#btn1').addEventListener('click', function() {
+  document.querySelector('#modal1').classList.add('is-open');
+});
+var modals = document.querySelectorAll('.modal');
+Array.prototype.forEach.call(modals, function(modal) {
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('modal__close')) {
+      modal.classList.remove('is-open');
+    }
+  });
+});
+</script>
+
+Styleguide Modal
+*/
+
+.modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: none;/* Hide the modal by default */
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal__dialog {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%); /* Horizontally and vertically centered */
+  border: 1px solid black;
+  background-color: white;
+}
+
+.modal__header,
+.modal__body,
+.modal__footer {
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.modal__header {
+  border-bottom: 1px solid gray;
+  display: flex;
+  padding: 1em;
+}
+
+.modal__close {
+  /*
+  position: absolute;
+  top: 0.3em;
+  right: 0.3em;
+  */
+  padding: 0.3em;
+  cursor: pointer;
+  font-size: 1em;
+  height: 1em;
+  width: 1em;
+  text-indent: 10em;
+  overflow: hidden;
+  border: 0;
+  margin-left: auto;
+  position: relative;
+}
+
+.modal__close::after {
+  content: "\00D7";
+  position: absolute;
+  line-height: 0.5;
+  top: 0.2em;
+  left: 0.2em;
+  text-indent: 0;
+}
+
+.modal__footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal.is-open {
+  display: block;
+}
