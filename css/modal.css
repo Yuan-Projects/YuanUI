@@ -6,8 +6,8 @@ Displays a dialog to your webpage.
 Use JavaScript to toggle the `is-open` class in order to open and close the dialog.
 
 Markup:
-<button id="btn1">Click</button>
-<div class="modal" id="modal1">
+<button class="demobtn">Click</button>
+<div class="modal {{modifier_class}}">
   <div class="modal__dialog">
     <div class="modal__header">
       <div class="modal__title">Modal title</div>
@@ -15,6 +15,20 @@ Markup:
     </div>
     <div class="modal__body">
       <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <!--
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      -->
     </div>
     <div class="modal__footer">
       <button type="button">Close</button>
@@ -23,8 +37,10 @@ Markup:
   </div>
 </div>
 <script>
-document.querySelector('#btn1').addEventListener('click', function() {
-  document.querySelector('#modal1').classList.add('is-open');
+Array.prototype.forEach.call(document.querySelectorAll('.demobtn'), function(btn) {
+  btn.addEventListener('click', function() {
+    btn.nextElementSibling.classList.add('is-open');
+  });
 });
 var modals = document.querySelectorAll('.modal');
 Array.prototype.forEach.call(modals, function(modal) {
@@ -34,7 +50,23 @@ Array.prototype.forEach.call(modals, function(modal) {
     }
   });
 });
+document.body.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal')) {
+    e.target.classList.remove('is-open');
+  }
+});
+window.addEventListener('keydown', function(e) {
+  var activeModal = document.querySelector('.modal.is-open');
+  if (e.key.toLowerCase() === 'escape') {
+    if (activeModal) {
+      activeModal.classList.remove('is-open');
+    }
+  }
+});
 </script>
+
+.modal--slidein - Slide in from top
+.modal--verticalcenter - Vertically centered
 
 Styleguide Modal
 */
@@ -47,15 +79,30 @@ Styleguide Modal
   bottom: 0;
   display: none;/* Hide the modal by default */
   background-color: rgba(0, 0, 0, 0.3);
+  overflow-x: hidden;
+  overflow-y: auto;
+  z-index: 100;
 }
 
 .modal__dialog {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%); /* Horizontally and vertically centered */
+  max-width: 40rem;
+  margin: 2rem auto;
   border: 1px solid black;
   background-color: white;
+}
+
+.modal--slidein .modal__dialog {
+  /* We prefer animation to transition here, as some css properties could not be transitioned, such as the display property */
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+}
+
+.modal--slidein.is-open .modal__dialog {
+
+}
+
+.modal--verticalcenter .modal__dialog {
+
 }
 
 .modal__header,
@@ -72,11 +119,6 @@ Styleguide Modal
 }
 
 .modal__close {
-  /*
-  position: absolute;
-  top: 0.3em;
-  right: 0.3em;
-  */
   padding: 0.3em;
   cursor: pointer;
   font-size: 1em;
@@ -106,4 +148,22 @@ Styleguide Modal
 
 .modal.is-open {
   display: block;
+}
+
+.modal--verticalcenter.is-open {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@keyframes animatetop {
+  from {
+    transform: translateY(-300px);
+    opacity:0
+  }
+  to {
+    transform: translateY(0);
+    opacity:1
+  }
 }

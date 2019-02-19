@@ -178,13 +178,16 @@
 
         <div class="kss-modifier__wrapper">
           <div class="kss-modifier__heading kss-style">
-            Example
+            Examples
           </div>
 
+            <div class="kss-modifier__default-name kss-style">
+              Default styling
+            </div>
 
           <div class="kss-modifier__example">
-            <button id="btn1">Click</button>
-<div class="modal" id="modal1">
+            <button class="demobtn">Click</button>
+<div class="modal ">
   <div class="modal__dialog">
     <div class="modal__header">
       <div class="modal__title">Modal title</div>
@@ -192,6 +195,20 @@
     </div>
     <div class="modal__body">
       <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <!--
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      -->
     </div>
     <div class="modal__footer">
       <button type="button">Close</button>
@@ -200,8 +217,10 @@
   </div>
 </div>
 <script>
-document.querySelector('#btn1').addEventListener('click', function() {
-  document.querySelector('#modal1').classList.add('is-open');
+Array.prototype.forEach.call(document.querySelectorAll('.demobtn'), function(btn) {
+  btn.addEventListener('click', function() {
+    btn.nextElementSibling.classList.add('is-open');
+  });
 });
 var modals = document.querySelectorAll('.modal');
 Array.prototype.forEach.call(modals, function(modal) {
@@ -211,18 +230,165 @@ Array.prototype.forEach.call(modals, function(modal) {
     }
   });
 });
+document.body.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal')) {
+    e.target.classList.remove('is-open');
+  }
+});
+window.addEventListener('keydown', function(e) {
+  var activeModal = document.querySelector('.modal.is-open');
+  if (e.key.toLowerCase() === 'escape') {
+    if (activeModal) {
+      activeModal.classList.remove('is-open');
+    }
+  }
+});
 </script>
             <div class="kss-modifier__example-footer"></div>
           </div>
 
+            <div class="kss-modifier__name kss-style">
+              .modal--slidein
+            </div>
+            <div class="kss-modifier__description kss-style">
+              Slide in from top
+            </div>
+            <div class="kss-modifier__example">
+              <button class="demobtn">Click</button>
+<div class="modal modal--slidein">
+  <div class="modal__dialog">
+    <div class="modal__header">
+      <div class="modal__title">Modal title</div>
+      <button class="modal__close">close</button>
+    </div>
+    <div class="modal__body">
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <!--
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      -->
+    </div>
+    <div class="modal__footer">
+      <button type="button">Close</button>
+      <button type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+<script>
+Array.prototype.forEach.call(document.querySelectorAll('.demobtn'), function(btn) {
+  btn.addEventListener('click', function() {
+    btn.nextElementSibling.classList.add('is-open');
+  });
+});
+var modals = document.querySelectorAll('.modal');
+Array.prototype.forEach.call(modals, function(modal) {
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('modal__close')) {
+      modal.classList.remove('is-open');
+    }
+  });
+});
+document.body.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal')) {
+    e.target.classList.remove('is-open');
+  }
+});
+window.addEventListener('keydown', function(e) {
+  var activeModal = document.querySelector('.modal.is-open');
+  if (e.key.toLowerCase() === 'escape') {
+    if (activeModal) {
+      activeModal.classList.remove('is-open');
+    }
+  }
+});
+</script>
+              <div class="kss-modifier__example-footer"></div>
+            </div>
+            <div class="kss-modifier__name kss-style">
+              .modal--verticalcenter
+            </div>
+            <div class="kss-modifier__description kss-style">
+              Vertically centered
+            </div>
+            <div class="kss-modifier__example">
+              <button class="demobtn">Click</button>
+<div class="modal modal--verticalcenter">
+  <div class="modal__dialog">
+    <div class="modal__header">
+      <div class="modal__title">Modal title</div>
+      <button class="modal__close">close</button>
+    </div>
+    <div class="modal__body">
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <!--
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+      -->
+    </div>
+    <div class="modal__footer">
+      <button type="button">Close</button>
+      <button type="button">Save changes</button>
+    </div>
+  </div>
+</div>
+<script>
+Array.prototype.forEach.call(document.querySelectorAll('.demobtn'), function(btn) {
+  btn.addEventListener('click', function() {
+    btn.nextElementSibling.classList.add('is-open');
+  });
+});
+var modals = document.querySelectorAll('.modal');
+Array.prototype.forEach.call(modals, function(modal) {
+  modal.addEventListener('click', function (event) {
+    if (event.target.classList.contains('modal__close')) {
+      modal.classList.remove('is-open');
+    }
+  });
+});
+document.body.addEventListener('click', function(e) {
+  if (e.target.classList.contains('modal')) {
+    e.target.classList.remove('is-open');
+  }
+});
+window.addEventListener('keydown', function(e) {
+  var activeModal = document.querySelector('.modal.is-open');
+  if (e.key.toLowerCase() === 'escape') {
+    if (activeModal) {
+      activeModal.classList.remove('is-open');
+    }
+  }
+});
+</script>
+              <div class="kss-modifier__example-footer"></div>
+            </div>
         </div>
 
           <details class="kss-markup kss-style">
             <summary>
                 Markup
             </summary>
-            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"btn1"</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
-<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal"</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"modal1"</span>&gt;</span>
+            <pre class="hljs"><code class="language-handlebars"><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"demobtn"</span>&gt;</span>Click<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal [modifier class]"</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal__dialog"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal__header"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal__title"</span>&gt;</span>Modal title<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
@@ -230,6 +396,20 @@ Array.prototype.forEach.call(modals, function(modal) {
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal__body"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+      <span class="hljs-comment">&lt;!--
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      &lt;p&gt;Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.&lt;/p&gt;
+      --&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">class</span>=<span class="hljs-string">"modal__footer"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"button"</span>&gt;</span>Close<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
@@ -238,8 +418,10 @@ Array.prototype.forEach.call(modals, function(modal) {
   <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
 <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span><span class="javascript">
-<span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#btn1'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
-  <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'#modal1'</span>).classList.add(<span class="hljs-string">'is-open'</span>);
+<span class="hljs-built_in">Array</span>.prototype.forEach.call(<span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.demobtn'</span>), <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">btn</span>) </span>{
+  btn.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>{
+    btn.nextElementSibling.classList.add(<span class="hljs-string">'is-open'</span>);
+  });
 });
 <span class="hljs-keyword">var</span> modals = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">'.modal'</span>);
 <span class="hljs-built_in">Array</span>.prototype.forEach.call(modals, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">modal</span>) </span>{
@@ -248,6 +430,19 @@ Array.prototype.forEach.call(modals, function(modal) {
       modal.classList.remove(<span class="hljs-string">'is-open'</span>);
     }
   });
+});
+<span class="hljs-built_in">document</span>.body.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-keyword">if</span> (e.target.classList.contains(<span class="hljs-string">'modal'</span>)) {
+    e.target.classList.remove(<span class="hljs-string">'is-open'</span>);
+  }
+});
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'keydown'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">e</span>) </span>{
+  <span class="hljs-keyword">var</span> activeModal = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">'.modal.is-open'</span>);
+  <span class="hljs-keyword">if</span> (e.key.toLowerCase() === <span class="hljs-string">'escape'</span>) {
+    <span class="hljs-keyword">if</span> (activeModal) {
+      activeModal.classList.remove(<span class="hljs-string">'is-open'</span>);
+    }
+  }
 });
 </span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span></code></pre>
           </details>
